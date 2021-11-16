@@ -1,5 +1,5 @@
 .header {
-    background-image: url('images/1.jpg');
+    background-image: url('images/h.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -74,21 +74,10 @@ body {
 	margin-bottom: 20px;
 	text-transform: uppercase;
 }
-.questions img {
-	-webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-	-moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-	margin-bottom: 16px;
-}
+
 .questions .form-control,
 .questions input {
 	border-radius: 0;
-}
-.questions .btn {
-    background-color: #589b37;
-    border: 1px solid #589b37;
-    color: #fff;
-    margin-top: 20px;
 }
 .questions .btn:hover {
     background-color: #333;
