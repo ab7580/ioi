@@ -9,8 +9,29 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     </head>
     <body>
+        <!-- Modal -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Trenutna stopnja</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                Tvoja trenutna stopnja je Zgodovinar začetnik. Da napreduješ na naslednjo stopnjo, moraš pravilno odgovoriti še na 6 vprašanj.
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zapri</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Modal END-->
+        
         <nav class="navbar navbar-expand-md bg-light">
-            <a class="navbar-brand" href="#" width="30" height="30" alt="">
+            <a class="navbar-brand" href="./index.html" width="30" height="30" alt="">
                 <img src="images/achilles.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
                 Kviz
             </a>
@@ -20,16 +41,16 @@
             <div class="collapse navbar-collapse" id="main-navigation">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Domov</a>
+                        <a class="nav-link" href="./index.html">Domov</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Moja vprašanja</a>
+                        <a class="nav-link" href="./my_questions.html">Moja vprašanja</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Prijava</a>
+                        <a class="nav-link" href="./login.html">Prijava</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Registracija</a>
+                        <a class="nav-link" href="./register.html">Registracija</a>
                     </li>
                 </ul>
             </div>
@@ -37,40 +58,40 @@
         <div class="container mt-4">
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-10">
-                    <h3 class="text-center">Zgodovinar začetnik</h3>
+                    <h4 class="text-center">Zgodovinar začetnik <i data-toggle="modal" data-target="#infoModal" class="bi bi-info-circle"></i></h4>
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
                                 </td>
                                 <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
                                 </td>
                                 <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
                                 </td>
                                 <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
                                 </td>
                                 <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm rounded-circle grayscale"></a>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
+                                </td>
+                                <td>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
+                                </td>
+                                <td>
+                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
                                 </td>
                             </tr>
                         </tbody>
