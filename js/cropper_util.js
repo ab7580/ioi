@@ -50,6 +50,7 @@ window.addEventListener('DOMContentLoaded', function () {
       });
     }).on('hidden.bs.modal', function () {
       cropper.destroy();
+      console.log("destroying modal");
       cropper = null;
     });
 

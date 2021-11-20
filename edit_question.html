@@ -13,6 +13,28 @@
         <link rel="stylesheet" href="css/cropper.css">
     </head>
     <body>
+        <!-- Modal -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" 
+        aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Opozorilo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                Ali ste prepričani, da želite odstraniti vprašanje?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Odstrani</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Modal END-->
         <nav class="navbar navbar-expand-md bg-light">
             <a class="navbar-brand" href="./index.html" width="30" height="30" alt="">
                 <img src="images/achilles.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -76,7 +98,7 @@
 
                     <div class="form-group">
                       <button type="submit" class="btn btn-primary">Shrani</button>
-                      <button class="btn btn-danger">Odstrani</button>
+                      <button data-toggle="modal" data-target="#infoModal" class="btn btn-danger">Odstrani</button>
                     </div>
 
 
@@ -93,7 +115,7 @@
             </div>
         </div>
         <!-- modal -->
-       <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+       <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"  data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

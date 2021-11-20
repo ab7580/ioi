@@ -9,6 +9,27 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     </head>
     <body>
+        <!-- Modal -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Opozorilo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                Ali ste prepričani, da želite odstraniti vprašanje?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Odstrani</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Modal END-->
         <nav class="navbar navbar-expand-md bg-light">
             <a class="navbar-brand" href="./index.html" width="30" height="30" alt="">
                 <img src="images/achilles.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -42,7 +63,7 @@
                         <th scope="row">1</th>
                         <td>Now THIS is really a very long quesiton. To je drugo zgodovinsko vprašanje? How much cock can a cockblock block if a cockblock could block cock? Assume standard size of the cock and of the cockblock.<br>
                             <button class="btn btn-primary btn-sm mt-2">Uredi</button>
-                            <button class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
+                            <button data-toggle="modal" data-target="#infoModal" class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +72,7 @@
                             <!-- <button class="btn btn-primary btn-sm mt-2"><i class="bi bi-pencil-square"></i></button>
                             <button class="btn btn-danger btn-sm ml-2 mt-2"><i class="bi bi-trash"></i></button> -->
                             <button class="btn btn-primary btn-sm mt-2">Uredi</button>
-                            <button class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
+                            <button data-toggle="modal" data-target="#infoModal" class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
                         </td>
                     </tr>
                 </tbody>
