@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-        <link rel="stylesheet" href="css/image_upload.css">
+        <link rel="stylesheet" href="css/image_util.css">
         <link rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="css/cropper.css">
     </head>
@@ -78,9 +78,14 @@
                         <button type="submit" class="btn btn-primary">Dodaj</button>
                     </div>
 
-                    <!-- Uploaded image area-->
-                    <p class="text-center">Predogled slike bo prikazan v spodnjem oknu.</p>
-                    <div class="image-area mt-4 mb-4">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                      </div>
+
+                    <div class="alert"></div>
+
+                    <p class="text-center" id="myText">Predogled slike bo prikazan v spodnjem oknu.</p>
+                    <div class="image-area mt-3 mb-3">
                         <img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
                     </div>
                 </div>
@@ -102,8 +107,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
                         <button type="button" class="btn btn-primary" id="crop">Obreži</button>
+                        <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Zapri</button>
                     </div>
                 </div>
             </div>
@@ -114,7 +119,7 @@
         <script src="https://unpkg.com/jquery@3/dist/jquery.min.js" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/cropper.js"></script>
-        <script src="js/cropper2.js"></script>
+        <script src="js/cropper_util.js"></script>
         <script src="js/image_upload.js"></script>
     </body>
     
