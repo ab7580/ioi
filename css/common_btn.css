@@ -10,6 +10,9 @@
 .btn-danger {
     box-shadow: 0 3px 0 0 #cc0000;
 }
+.btn-success {
+    box-shadow: 0 3px 0 0 #02790c;
+}
 .btn:active {
 	background: #33a6cc;
 	box-shadow: none;
