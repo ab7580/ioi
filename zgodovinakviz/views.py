@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def vprasanja(request):
+    return render(request, 'zgodovinakviz/question_list.html', {})
