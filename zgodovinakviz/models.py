@@ -6,8 +6,17 @@ class Level(models.Model):
     ime = models.CharField(max_length=1000)
     vrstni_red = models.IntegerField()
 
+    def __str__(self):
+        return self.ime;
+
+
+class Uporabnik(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True)
+
+
 class Vprasanje(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(Uporabnik, on_delete=models.SET_NULL, null=True)
     vprasanje = models.CharField(max_length=1000)
     pravilen_odgovor = models.CharField(max_length=1000)
     napacen_odgovor_1 = models.CharField(max_length=1000)
@@ -25,8 +34,9 @@ class Vprasanje(models.Model):
     def __str__(self):
         return self.vprasanje
 
+
 class Odgovor(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(Uporabnik, on_delete=models.SET_NULL, null=True)
     vprasanje = models.ForeignKey(Vprasanje, on_delete=models.SET_NULL, null=True)
     pravilen = models.BooleanField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -38,3 +48,11 @@ class Odgovor(models.Model):
 
     def __str__(self):
         return self.vprasanje
+
+
+class PrikazanaVprasanja(models.Model):
+    vprasanje = models.ForeignKey(Vprasanje, on_delete=models.CASCADE)
+    uporabnik = models.ForeignKey(Uporabnik, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "Uporabniku " + self.uporabnik + " se prikazuje vprasanje " + self.vprasanje + " DO NOT ADD MANUALLY"
