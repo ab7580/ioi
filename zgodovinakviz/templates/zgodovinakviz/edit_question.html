@@ -60,31 +60,31 @@
                     <h3>Uredi vprašanje</h3>
                     <form class="needs-validation" novalidate>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Neko že vneseno vprašanje" name="question" required>
+                            <input type="text" class="form-control" placeholder="{{ vprasanje.vprasanje }}" name="question" required>
                             <div class="invalid-feedback">
                                 Vnesi vprašanje.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Pravilni odgovor" name="correct-answer" required>
+                            <input type="text" class="form-control" placeholder="{{ vprasanje.pravilen_odgovor }}" name="correct-answer" required>
                             <div class="invalid-feedback">
                                 Vnesi pravilni odgovor.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Prvi napačni odgovor" name="wrong-answer1" required>
+                            <input type="text" class="form-control" placeholder="{{ vprasanje.napacen_odgovor_1 }}" name="wrong-answer1" required>
                             <div class="invalid-feedback">
                                 Vnesi prvi napačni odgovor.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Drugi napačni odgovor" name="wrong-answer2" required>
+                            <input type="text" class="form-control" placeholder="{{ vprasanje.napacen_odgovor_2 }}" name="wrong-answer2" required>
                             <div class="invalid-feedback">
                                 Vnesi drugi napačni odgovor.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Namig" name="hint" required>
+                            <input type="text" class="form-control" placeholder="{{ vprasanje.namig }}" name="hint" required>
                             <div class="invalid-feedback">
                                 Vnesi namig.
                             </div>

@@ -36,7 +36,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-10 ">
                     <h3>Dodaj vprašanje</h3>
-                    <form class="needs-validation" novalidate>
+					<form method="POST" class="post-form needs-valudation" novalidate>{% csrf_token %}
+						{{ form.as_p }}
+						<button type="submit" class="save btn btn-primary">Dodaj</button>
+					</form>
+                    <form class="needs-validation" novalidate>	
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Vprašanje" name="question" required>
                             <div class="invalid-feedback">
