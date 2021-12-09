@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Vprasanje, Uporabnik, PrikazanaVprasanja
+from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor
 from .forms import VprasanjeForm
 from django.utils import timezone
 from django.contrib.auth import authenticate
@@ -57,22 +57,26 @@ def odstrani(request, pk):
     vprasanje.delete()
     return redirect('moja_vprasanja')
 
-def vprasanje(request):
-    return render(request, 'zgodovinakviz/question.html', {})
+def vprasanje(request, pk):
+    vprasanje = get_object_or_404(Vprasanje, pk=pk)
+    return render(request, 'zgodovinakviz/question.html', {'vprasanje': vprasanje})
 
 def generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja):
-    odgovorjena_vprasanja = Odgovor.objects.filter(uporabnik=uporabnik).values('vprasanje__id')
-    neodgovorjena_vprasanja = Vprasanje.objects.exclude(pk__in=odgovorjena_vprasanja).values_list('pk')
+    odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik).values('vprasanje__id')
+    neodgovorjena_vprasanja = Vprasanje.objects.exclude(pk__in=odgovorjena_vprasanja).values('pk')
+    neodgovorjena_vprasanja = [v['pk'] for v in neodgovorjena_vprasanja]
 
     chosen_ints = []
     chosen_pks = []
     for i in range(9):
         chosen = random.randint(0, len(neodgovorjena_vprasanja) - 1)
-        if chosen not in chosen_ints:
-            chosen_ints.append(chosen)
-            chosen_vprasanje = neodgovorjena_vprasanja[chosen]
-            chosen_pks.append(chosen_vprasanje)
-            PrikazanaVprasanja.create(uporabnik=uporabnik, vprasanje=chosen_vprasanje)
+        while chosen in chosen_ints:
+            chosen = random.randint(0, len(neodgovorjena_vprasanja) - 1)
+        chosen_ints.append(chosen)
+        chosen_vprasanje = neodgovorjena_vprasanja[chosen]
+        print(chosen_vprasanje)
+        chosen_pks.append(chosen_vprasanje)
+        PrikazanaVprasanja.objects.create(uporabnik=uporabnik, vprasanje=Vprasanje.objects.get(pk=chosen_vprasanje))
 
     return Vprasanje.objects.filter(pk__in=chosen_pks)
 
@@ -82,7 +86,13 @@ def kviz(request):
     prikazanaVprasanja = PrikazanaVprasanja.objects.filter(uporabnik=uporabnik)
     if len(prikazanaVprasanja) != 9:
         prikazanaVprasanja = generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja)
-    return render(request, 'zgodovinakviz/question_list.html', {'vprasanja': prikazanaVprasanja})
+
+    pravilno_odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik, vprasanje__in=prikazanaVprasanja).values('vprasanje__id')
+    pravilno_odgovorjena_vprasanja = [v['pk'] for v in pravilno_odgovorjena_vprasanja]
+    return render(request, 'zgodovinakviz/question_list.html', {'vprasanja1': prikazanaVprasanja[0:3],
+                                                                'vprasanja2': prikazanaVprasanja[3:6],
+                                                                'vprasanja3': prikazanaVprasanja[6:9],
+                                                                'pravilna': pravilno_odgovorjena_vprasanja})
 
 def moja_vprasanja(request):
     vprasanja = Vprasanje.objects.all().order_by('created_date');

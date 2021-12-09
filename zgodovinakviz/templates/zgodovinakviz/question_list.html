@@ -56,37 +56,25 @@
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
+								{% for v in vprasanja1 %}
+									<td>
+										<a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk not in pravilna %} grayscale {% endif %}"></a>
+									</td>
+								{% endfor %}
                             </tr>
                             <tr>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
+								{% for v in vprasanja2 %}
+									<td>
+										<a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk not in pravilna %} grayscale {% endif %}"></a>
+									</td>
+								{% endfor %}
                             </tr>
                             <tr>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
-                                <td>
-                                    <a href="./question.html"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="img-fluid avatar avatar-sm  grayscale"></a>
-                                </td>
+                                {% for v in vprasanja3 %}
+									<td>
+										<a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk not in pravilna %} grayscale {% endif %}"></a>
+									</td>
+								{% endfor %}
                             </tr>
                         </tbody>
                     </table>

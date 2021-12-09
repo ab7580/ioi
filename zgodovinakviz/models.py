@@ -37,6 +37,7 @@ class Vprasanje(models.Model):
 class Odgovor(models.Model):
     author = models.ForeignKey(Uporabnik, on_delete=models.SET_NULL, null=True)
     vprasanje = models.ForeignKey(Vprasanje, on_delete=models.SET_NULL, null=True)
+    izbran_odgovor = models.CharField(max_length=1000)
     pravilen = models.BooleanField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
