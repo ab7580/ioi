@@ -58,6 +58,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-10 ">
                     <h3>Uredi vprašanje</h3>
+					<form method="POST" class="post-form needs-valudation" novalidate>{% csrf_token %}
+						{{ form.as_p }}
+						<button type="submit" class="save btn btn-primary">Shrani</button>
+						<button type="button" data-toggle="modal" data-target="#infoModal" class="btn btn-danger">Odstrani</button>
+					</form>
                     <form class="needs-validation" novalidate>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="{{ vprasanje.vprasanje }}" name="question" required>
