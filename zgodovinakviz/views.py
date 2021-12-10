@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor
-from .forms import VprasanjeForm, OdgovorForm
+from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm
 from django.utils import timezone
 from django.contrib.auth import authenticate
 
@@ -40,7 +40,7 @@ def dodaj(request):
 def uredi(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
     if request.method == "POST":
-        form = VprasanjeForm(request.POST, instance=vprasanje)
+        form = VprasanjeEditForm(request.POST, instance=vprasanje)
         if form.is_valid():
             vprasanje = form.save(commit=False)
             user = request.user
@@ -49,8 +49,8 @@ def uredi(request, pk):
             vprasanje.save()
             return redirect('moja_vprasanja')
     else:
-        form = VprasanjeForm(instance=vprasanje)
-    return render(request, 'zgodovinakviz/edit_question.html', {'form': form})
+        form = VprasanjeEditForm(instance=vprasanje)
+    return render(request, 'zgodovinakviz/edit_question.html', {'form': form, 'vprasanje_pk': pk})
 
 def odstrani(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
@@ -123,6 +123,6 @@ def kviz(request):
                                                                 'pravilna': pravilno_odgovorjena_vprasanja})
 
 def moja_vprasanja(request):
-    vprasanja = Vprasanje.objects.all().order_by('created_date');
+    vprasanja = Vprasanje.objects.all().order_by('-created_date');
     return render(request, 'zgodovinakviz/questions_overview.html', {'vprasanja': vprasanja})
 

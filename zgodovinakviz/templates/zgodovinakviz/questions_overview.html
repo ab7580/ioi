@@ -12,8 +12,8 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-md bg-light">
-            <a class="navbar-brand" href="./index.html" width="30" height="30" alt="">
-                <img src="images/achilles.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+            <a class="navbar-brand" href="/vstop" width="30" height="30" alt="">
+                <img src="{% static 'images/achilles.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
             </a>
             <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#main-navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@
 							<td class="text-left">{{v.vprasanje}}<br>
 								(Odgovor: {{v.pravilen_odgovor}}.)<br>
 								<a role="button" href="{% url 'uredi' pk=v.pk %}" class="btn btn-primary btn-sm mt-2">Uredi</a>
-								<button data-toggle="modal" data-target="#modal{{v.pk}}" class="btn btn-danger btn-sm ml-2 mt-2"">Odstrani</button>
+								<button data-toggle="modal" data-target="#modal{{v.pk}}" class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
 							</td>
 						</tr>
 						<!-- Modal -->

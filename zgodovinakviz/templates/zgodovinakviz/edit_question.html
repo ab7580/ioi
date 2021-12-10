@@ -30,7 +30,7 @@
                 Ali ste prepričani, da želite odstraniti vprašanje?
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Odstrani</button>
+                <a role="button" type="button" class="btn btn-danger" href="{% url 'odstrani' pk=vprasanje_pk %}">Odstrani</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
                 </div>
             </div>
@@ -38,8 +38,8 @@
         </div>
         <!-- Modal END-->
         <nav class="navbar navbar-expand-md bg-light">
-            <a class="navbar-brand" href="./index.html" width="30" height="30" alt="">
-                <img src="images/achilles.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+            <a class="navbar-brand" href="/vstop" width="30" height="30" alt="">
+                <img src="{% static 'images/achilles.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
             </a>
             <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#main-navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,44 +59,46 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-10 ">
                     <h3>Uredi vprašanje</h3>
-					<form method="POST" class="post-form needs-valudation" novalidate>{% csrf_token %}
-						{{ form.as_p }}
-						<button type="submit" class="save btn btn-primary">Shrani</button>
-						<button type="button" data-toggle="modal" data-target="#infoModal" class="btn btn-danger">Odstrani</button>
-					</form>
-                    <form class="needs-validation" novalidate>
+					<form method="POST" class="needs-validation" novalidate>{% csrf_token %}
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="{{ vprasanje.vprasanje }}" name="question" required>
+							{{form.vprasanje}}
                             <div class="invalid-feedback">
                                 Vnesi vprašanje.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="{{ vprasanje.pravilen_odgovor }}" name="correct-answer" required>
+							{{form.pravilen_odgovor}}
                             <div class="invalid-feedback">
                                 Vnesi pravilni odgovor.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="{{ vprasanje.napacen_odgovor_1 }}" name="wrong-answer1" required>
+						{{form.napacen_odgovor_1}}
                             <div class="invalid-feedback">
                                 Vnesi prvi napačni odgovor.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="{{ vprasanje.napacen_odgovor_2 }}" name="wrong-answer2" required>
+						{{form.napacen_odgovor_2}}
                             <div class="invalid-feedback">
                                 Vnesi drugi napačni odgovor.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="{{ vprasanje.namig }}" name="hint" required>
+						{{form.namig}}
                             <div class="invalid-feedback">
                                 Vnesi namig.
                             </div>
                         </div>
+						
+						<div class="form-group">
+						{{form.slika}}
+                            <div class="invalid-feedback">
+                                Vnesi URL slike.
+                            </div>
+                        </div>
     
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="upload" onchange="readURL(this);">
                                 <div class="invalid-feedback">
@@ -104,17 +106,17 @@
                                 </div>
                                 <label class="custom-file-label" for="upload" id="upload-label" data-browse="Izberi">Izberi fotografijo...</label>
                             </div>
-                        </div>
-                        <div class="form-group">
+                        </div>-->
+                        <!--<div class="form-group">
                             <input type="text" class="form-control" placeholder="Ime predmeta na sliki" name="hint" required>
                             <div class="invalid-feedback">
                                 Vnesi ime predmeta na sliki.
                             </div>
-                        </div>
+                        </div>-->
     
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Shrani</button>
-                            <button type="button" data-toggle="modal" data-target="#infoModal" class="btn btn-danger">Odstrani</button>
+							<button type="submit" class="save btn btn-primary">Shrani</button>
+							<button type="button" data-toggle="modal" data-target="#infoModal" class="btn btn-danger">Odstrani</button>
                         </div>
                     </form>
 
