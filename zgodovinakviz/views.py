@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor
-from .forms import VprasanjeForm
+from .forms import VprasanjeForm, OdgovorForm
 from django.utils import timezone
 from django.contrib.auth import authenticate
 
@@ -59,7 +59,30 @@ def odstrani(request, pk):
 
 def vprasanje(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
-    return render(request, 'zgodovinakviz/question.html', {'vprasanje': vprasanje})
+    if request.method == "POST":
+        user = request.user
+        if vprasanje.pravilen_odgovor in request.POST:
+            Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
+                                   vprasanje = vprasanje,
+                                   izbran_odgovor = vprasanje.pravilen_odgovor,
+                                   pravilen = True,
+                                   published_date = timezone.now())
+        elif vprasanje.napacen_odgovor_1 in request.POST:
+            Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
+                                   vprasanje = vprasanje,
+                                   izbran_odgovor = vprasanje.napacen_odgovor_1,
+                                   pravilen = False,
+                                   published_date = timezone.now())
+        elif vprasanje.napacen_odgovor_1 in request.POST:
+            Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
+                                   vprasanje = vprasanje,
+                                   izbran_odgovor = vprasanje.napacen_odgovor_2,
+                                   pravilen = False,
+                                   published_date = timezone.now())
+        return redirect('kviz')
+    else:
+        form = OdgovorForm()
+    return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje})
 
 def generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja):
     odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik).values('vprasanje__id')
@@ -84,11 +107,16 @@ def kviz(request):
     user = request.user
     uporabnik = Uporabnik.objects.get(user=user)
     prikazanaVprasanja = PrikazanaVprasanja.objects.filter(uporabnik=uporabnik)
+    print([v['pk'] for v in prikazanaVprasanja.values('pk')])
     if len(prikazanaVprasanja) != 9:
         prikazanaVprasanja = generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja)
+    else:
+        prikazanaVprasanja = Vprasanje.objects.filter(pk__in = [v['vprasanje'] for v in prikazanaVprasanja.values('vprasanje')])
 
     pravilno_odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik, vprasanje__in=prikazanaVprasanja).values('vprasanje__id')
-    pravilno_odgovorjena_vprasanja = [v['pk'] for v in pravilno_odgovorjena_vprasanja]
+    print(pravilno_odgovorjena_vprasanja)
+    pravilno_odgovorjena_vprasanja = [v['vprasanje__id'] for v in pravilno_odgovorjena_vprasanja]
+    print(prikazanaVprasanja)
     return render(request, 'zgodovinakviz/question_list.html', {'vprasanja1': prikazanaVprasanja[0:3],
                                                                 'vprasanja2': prikazanaVprasanja[3:6],
                                                                 'vprasanja3': prikazanaVprasanja[6:9],

@@ -7,12 +7,15 @@ class Level(models.Model):
     vrstni_red = models.IntegerField()
 
     def __str__(self):
-        return self.ime;
+        return self.ime
 
 
 class Uporabnik(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.user.first_name
 
 
 class Vprasanje(models.Model):
@@ -47,7 +50,7 @@ class Odgovor(models.Model):
         self.save()
 
     def __str__(self):
-        return self.vprasanje
+        return self.vprasanje.vprasanje
 
 
 class PrikazanaVprasanja(models.Model):
@@ -55,4 +58,4 @@ class PrikazanaVprasanja(models.Model):
     uporabnik = models.ForeignKey(Uporabnik, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "Uporabniku " + self.uporabnik + " se prikazuje vprasanje " + self.vprasanje + " DO NOT ADD MANUALLY"
+        return "Uporabniku " + self.uporabnik.user.first_name + " se prikazuje vprasanje " + self.vprasanje.vprasanje + " DO NOT ADD MANUALLY"
