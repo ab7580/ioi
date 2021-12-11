@@ -2,3 +2,6 @@
 ioienv
 .vs
 __pycache__/
+zgodovinakviz/migrations/__pycache__/__init__.cpython-38.pyc
+zgodovinakviz/migrations/__pycache__/0002_auto_20211208_1825.cpython-38.pyc
+zgodovinakviz/migrations/__pycache__/0001_initial.cpython-38.pyc
