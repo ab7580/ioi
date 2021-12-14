@@ -45,8 +45,8 @@ window.addEventListener('DOMContentLoaded', function () {
       cropper = new Cropper(image, {
         aspectRatio: 1,
         viewMode: 3,
-        minCropBoxWidth: 400,
-        minCropBoxHeight: 400,
+        minCropBoxWidth: 100,
+        minCropBoxHeight: 100,
       });
     }).on('hidden.bs.modal', function () {
       cropper.destroy();
