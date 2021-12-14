@@ -1,3 +1,6 @@
 - funkcija lock za ucitelja da zaklene ucencu moznost zbrisat vprasanje / zaklene ucencu moznost delat vprasanja
 - zelena, crna, rdeca obroba okrog slik na 3x3 gridu, ki nakazuje stanje vprašanja
 - zaobljene slike
+
+- gumbki za učitelje
+- namigi za učence

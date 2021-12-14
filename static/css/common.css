@@ -37,3 +37,12 @@
 img {
 	border-radius:.75rem!important
 }
+.teacher.bi-lock:hover {
+	color: red;
+	cursor: pointer;
+}
+
+.teacher.bi-lock-fill:hover {
+	color: red;
+	cursor: pointer;
+}
