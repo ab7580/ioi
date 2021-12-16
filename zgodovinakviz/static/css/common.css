@@ -22,7 +22,7 @@
 .myBorder {
 	border: 4px;
 	border-style: solid;
-	border-radius: 10px;
+	border-radius: .75rem;
 	padding: 5px;
 }
 .myBorder-green {
@@ -30,4 +30,19 @@
 }
 .myBorder-red {
 	border-color: rgb(241, 196, 196)
+}
+.myBorder-yellow {
+	border-color: rgb(255, 247, 129)
+}
+img {
+	border-radius:.75rem!important
+}
+.teacher.bi-lock:hover {
+	color: red;
+	cursor: pointer;
+}
+
+.teacher.bi-lock-fill:hover {
+	color: red;
+	cursor: pointer;
 }
