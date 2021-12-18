@@ -21,7 +21,7 @@ def vpis(request):
     return render(request, 'zgodovinakviz/login.html', {})
 
 def vstopi(request):
-    return render(request, 'zgodovinakviz/index.html', {})
+    return render(request, 'zgodovinakviz/index.html', {'title': 'Dobrodosli v kvizkotu'})
 
 def dodaj(request):
     if request.method == "POST":
@@ -35,7 +35,7 @@ def dodaj(request):
             return redirect('moja_vprasanja')
     else:
         form = VprasanjeForm()
-        return render(request, 'zgodovinakviz/add_question.html', {'form': form})
+        return render(request, 'zgodovinakviz/add_question.html', {'form': form, 'title': 'Dodaj vprasanje'})
 
 def uredi(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
@@ -50,7 +50,7 @@ def uredi(request, pk):
             return redirect('moja_vprasanja')
     else:
         form = VprasanjeEditForm(instance=vprasanje)
-    return render(request, 'zgodovinakviz/edit_question.html', {'form': form, 'vprasanje_pk': pk})
+    return render(request, 'zgodovinakviz/edit_question.html', {'form': form, 'vprasanje_pk': pk, 'title': 'Uredi vprasanje'})
 
 def odstrani(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
@@ -82,7 +82,7 @@ def vprasanje(request, pk):
         return redirect('kviz')
     else:
         form = OdgovorForm()
-    return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje})
+    return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje, 'title': 'Vprasanje'})
 
 def generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja):
     odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik).values('vprasanje__id')
@@ -125,9 +125,10 @@ def kviz(request):
                                                                 'vprasanja3': prikazanaVprasanja[6:9],
                                                                 'pravilna': pravilna_vprasanja,
                                                                 'napacna': napacna_vprasanja,
-                                                                'neodgovorjena': neodgovorjena_vprasanja})
+                                                                'neodgovorjena': neodgovorjena_vprasanja,
+                                                                'title': 'Seznam vprasanj'})
 
 def moja_vprasanja(request):
     vprasanja = Vprasanje.objects.all().order_by('-created_date');
-    return render(request, 'zgodovinakviz/questions_overview.html', {'vprasanja': vprasanja})
+    return render(request, 'zgodovinakviz/questions_overview.html', {'vprasanja': vprasanja, 'title': 'Moja vprasanja'})
 
