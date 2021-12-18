@@ -60,10 +60,10 @@
 								{% for v in vprasanja1 %}
 									<td>
                                         <div class="myBorder 
-                                             {% if v.pk in pravilna %} myBorder-green {% endif %}
-                                             {% if v.pk in napacna %} myBorder-red {% endif %}
-                                             {% if v.pk in neodgovorjena %} myBorder-yellow {% endif %}">
-                                            <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk not in pravilna %} grayscale {% endif %}"></a>
+                                             {% if v.pk in pravilna %} myBorder-green
+                                             {% elif v.pk in napacna %} myBorder-red
+                                             {% elif v.pk in neodgovorjena %} myBorder-yellow {% endif %}">
+                                            <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk in neodgovorjena %} grayscale {% endif %}"></a>
                                         </div>
 									</td>
 								{% endfor %}
@@ -72,10 +72,10 @@
 								{% for v in vprasanja2 %}
 									<td>
                                         <div class="myBorder
-                                             {% if v.pk in pravilna %} myBorder-green {% endif %}
-                                             {% if v.pk in napacna %} myBorder-red {% endif %}
-                                             {% if v.pk in neodgovorjena %} myBorder-yellow {% endif %}">
-                                            <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk not in pravilna %} grayscale {% endif %}"></a>
+                                             {% if v.pk in pravilna %} myBorder-green
+                                             {% elif v.pk in napacna %} myBorder-red
+                                             {% elif v.pk in neodgovorjena %} myBorder-yellow {% endif %}">
+                                            <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk in neodgovorjena %} grayscale {% endif %}"></a>
                                         </div>
 									</td>
 								{% endfor %}
@@ -84,10 +84,10 @@
                                 {% for v in vprasanja3 %}
 									<td>
                                         <div class="myBorder
-                                             {% if v.pk in pravilna %} myBorder-green {% endif %}
-                                             {% if v.pk in napacna %} myBorder-red {% endif %}
-                                             {% if v.pk in neodgovorjena %} myBorder-yellow {% endif %}">
-                                            <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk not in pravilna %} grayscale {% endif %}"></a>
+                                             {% if v.pk in pravilna %} myBorder-green
+                                             {% elif v.pk in napacna %} myBorder-red
+                                             {% elif v.pk in neodgovorjena %} myBorder-yellow {% endif %}">
+                                            <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika}}" class="img-fluid avatar avatar-sm {% if v.pk in neodgovorjena %} grayscale {% endif %}"></a>
                                         </div>
 									</td>
 								{% endfor %}

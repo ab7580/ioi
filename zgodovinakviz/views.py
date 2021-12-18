@@ -73,7 +73,7 @@ def vprasanje(request, pk):
                                    izbran_odgovor = vprasanje.napacen_odgovor_1,
                                    pravilen = False,
                                    published_date = timezone.now())
-        elif vprasanje.napacen_odgovor_1 in request.POST:
+        elif vprasanje.napacen_odgovor_2 in request.POST:
             Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
                                    vprasanje = vprasanje,
                                    izbran_odgovor = vprasanje.napacen_odgovor_2,
@@ -107,20 +107,25 @@ def kviz(request):
     user = request.user
     uporabnik = Uporabnik.objects.get(user=user)
     prikazanaVprasanja = PrikazanaVprasanja.objects.filter(uporabnik=uporabnik)
-    print([v['pk'] for v in prikazanaVprasanja.values('pk')])
+    #print([v['pk'] for v in prikazanaVprasanja.values('pk')])
     if len(prikazanaVprasanja) != 9:
         prikazanaVprasanja = generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja)
     else:
         prikazanaVprasanja = Vprasanje.objects.filter(pk__in = [v['vprasanje'] for v in prikazanaVprasanja.values('vprasanje')])
 
-    pravilno_odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik, vprasanje__in=prikazanaVprasanja).values('vprasanje__id')
-    print(pravilno_odgovorjena_vprasanja)
-    pravilno_odgovorjena_vprasanja = [v['vprasanje__id'] for v in pravilno_odgovorjena_vprasanja]
-    print(prikazanaVprasanja)
+    odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik, vprasanje__in=prikazanaVprasanja)
+    neodgovorjena_vprasanja = prikazanaVprasanja.exclude(pk__in=[v['vprasanje__id'] for v in odgovorjena_vprasanja.values('vprasanje__id')]).values('pk')
+    neodgovorjena_vprasanja = [v['pk'] for v in neodgovorjena_vprasanja]
+    pravilna_vprasanja = odgovorjena_vprasanja.filter(pravilen=True).values('vprasanje__id')
+    pravilna_vprasanja = [v['vprasanje__id'] for v in pravilna_vprasanja]
+    napacna_vprasanja = odgovorjena_vprasanja.filter(pravilen=False).values('vprasanje__id')
+    napacna_vprasanja = [v['vprasanje__id'] for v in napacna_vprasanja]
     return render(request, 'zgodovinakviz/question_list.html', {'vprasanja1': prikazanaVprasanja[0:3],
                                                                 'vprasanja2': prikazanaVprasanja[3:6],
                                                                 'vprasanja3': prikazanaVprasanja[6:9],
-                                                                'pravilna': pravilno_odgovorjena_vprasanja})
+                                                                'pravilna': pravilna_vprasanja,
+                                                                'napacna': napacna_vprasanja,
+                                                                'neodgovorjena': neodgovorjena_vprasanja})
 
 def moja_vprasanja(request):
     vprasanja = Vprasanje.objects.all().order_by('-created_date');
