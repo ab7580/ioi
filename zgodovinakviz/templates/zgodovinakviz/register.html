@@ -15,32 +15,34 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-10 ">
                     <h3>Registracija</h3>
-                    <form class="needs-validation" novalidate>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Elektronski naslov" required>
-                            <div class="invalid-feedback">
-                                Vnesi veljavni elektronski naslov.
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="inputUsername" aria-describedby="usernameHelp" placeholder="Uporabniško ime" required>
+                    <form method="POST" class="needs-validation" novalidate>
+						{% csrf_token %}
+						<div class="form-group">
+							{{form.username}}
                             <div class="invalid-feedback">
                                 Vnesi veljavno uporabniško ime.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password" placeholder="Geslo" required>
+							{{form.email}}
+                            <div class="invalid-feedback">
+                                Vnesi veljavni elektronski naslov.
+                            </div>
+                        </div>
+                        <div class="form-group">
+							{{form.password1}}
                             <div class="invalid-feedback">
                                 Vnesi geslo.
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Potrdi geslo" oninput="validate_pw2(this)" required>
+							{{form.password2}}
                             <div class="invalid-feedback">
                                 Potrdi geslo.
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Registracija</button>
+						{{form.errors}}
+                        <button type="submit" class="save btn btn-primary">Registracija</button>
                     </form>
                 </div>
             </div>

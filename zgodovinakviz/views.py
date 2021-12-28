@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor
-from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm
+from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor, Level
+from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm, RegistracijaForm
 from django.utils import timezone
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 
 import random
 
@@ -10,7 +10,18 @@ def start(request):
     return render(request, 'zgodovinakviz/unauthenticated.html', {})
 
 def registracija(request):
-    return render(request, 'zgodovinakviz/register.html', {})
+    if request.method == "POST":
+        form = RegistracijaForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            Uporabnik.objects.create(user=user, level=Level.objects.get(vrstni_red=1))
+            return redirect("vstopi")
+        else:
+            return render(request, 'zgodovinakviz/register.html', {'form': form})
+    else:
+        form = RegistracijaForm()
+        return render(request, 'zgodovinakviz/register.html', {'form': form})
 
 def vpis(request):
     """user = authenticate(username='john', password='secret')
