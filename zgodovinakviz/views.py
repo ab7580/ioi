@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor, Level
+from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor, Level, Slika
 from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm, RegistracijaForm, VpisForm, SlikaForm
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
@@ -58,10 +58,9 @@ def vstopi(request):
 @login_required
 def upload(request):
     if request.method == "POST":
-        form = SlikaForm(request.FILES)
-        if form.is_valid():
-            slika = form.save()
-            return HttpResponse(status=201)
+        slika = request.FILES['slika']
+        Slika.objects.create(slika=slika)
+        return HttpResponse(status=201)
     return HttpResponse(status=500)
 
 @login_required
@@ -288,7 +287,7 @@ def vprasanja_ucenca(request, pk):
         return redirect("kviz")
     ucenec = get_object_or_404(Uporabnik, pk=pk)
     vprasanja = Vprasanje.objects.filter(author=ucenec).order_by('-created_date')
-    return render(request, 'zgodovinakviz/questions_overview_ucitelj.html', {'ucenec': ucenec,
+    return render(request, 'zgodovinakviz/questions_overview_ucitelj_en.html', {'ucenec': ucenec,
                                                                    'vprasanja': vprasanja,
                                                                     'title': 'Pregled vprašanj učenca',
                                                                     'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
