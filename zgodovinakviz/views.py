@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor, Level
-from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm, RegistracijaForm
+from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm, RegistracijaForm, VpisForm
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 
 import random
 
@@ -23,17 +25,36 @@ def registracija(request):
         form = RegistracijaForm()
         return render(request, 'zgodovinakviz/register.html', {'form': form})
 
-def vpis(request):
-    """user = authenticate(username='john', password='secret')
-    if user is not None:
-    # A backend authenticated the credentials
-    else:
-    # No backend authenticated the credentials"""
-    return render(request, 'zgodovinakviz/login.html', {})
+class vpis(LoginView):
+    template_name = "zgodovinakviz/login.html"
+    next_page = "vstop"
+    authentication_form = VpisForm
 
+    """
+def vpis(request):
+    if request.method == "POST":
+        form = VpisForm(request.POST)
+        if form.is_valid():
+            print("valid")
+            login(request, user)
+            return redirect("vstopi")
+        else:
+            return render(request, 'zgodovinakviz/login.html', {'form': form})
+    else:
+        form = VpisForm()
+        return render(request, 'zgodovinakviz/login.html', {'form': form})"""
+
+    """user = authenticate(username='john', password='secret')
+        if user is not None:
+        # A backend authenticated the credentials
+        else:
+        # No backend authenticated the credentials"""
+
+@login_required
 def vstopi(request):
     return render(request, 'zgodovinakviz/index.html', {'title': 'Dobrodosli v kvizkotu'})
 
+@login_required
 def dodaj(request):
     if request.method == "POST":
         form = VprasanjeForm(request.POST)
@@ -48,6 +69,7 @@ def dodaj(request):
         form = VprasanjeForm()
         return render(request, 'zgodovinakviz/add_question.html', {'form': form, 'title': 'Dodaj vprasanje'})
 
+@login_required
 def uredi(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
     if request.method == "POST":
@@ -63,11 +85,13 @@ def uredi(request, pk):
         form = VprasanjeEditForm(instance=vprasanje)
     return render(request, 'zgodovinakviz/edit_question.html', {'form': form, 'vprasanje_pk': pk, 'title': 'Uredi vprasanje'})
 
+@login_required
 def odstrani(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
     vprasanje.delete()
     return redirect('moja_vprasanja')
 
+@login_required
 def vprasanje(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
     if request.method == "POST":
@@ -95,6 +119,7 @@ def vprasanje(request, pk):
         form = OdgovorForm()
     return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje, 'title': 'Vprasanje'})
 
+@login_required
 def generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja):
     odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik).values('vprasanje__id')
     neodgovorjena_vprasanja = Vprasanje.objects.exclude(pk__in=odgovorjena_vprasanja).values('pk')
@@ -114,6 +139,7 @@ def generateNewVprasanjaForUser(uporabnik, prikazanaVprasanja):
 
     return Vprasanje.objects.filter(pk__in=chosen_pks)
 
+@login_required
 def kviz(request):
     user = request.user
     uporabnik = Uporabnik.objects.get(user=user)
@@ -139,6 +165,7 @@ def kviz(request):
                                                                 'neodgovorjena': neodgovorjena_vprasanja,
                                                                 'title': 'Seznam vprasanj'})
 
+@login_required
 def moja_vprasanja(request):
     vprasanja = Vprasanje.objects.all().order_by('-created_date');
     return render(request, 'zgodovinakviz/questions_overview.html', {'vprasanja': vprasanja, 'title': 'Moja vprasanja'})

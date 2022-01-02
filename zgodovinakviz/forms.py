@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 from .models import Vprasanje, Odgovor
@@ -39,7 +39,6 @@ class OdgovorForm(forms.ModelForm):
         fields = ('izbran_odgovor',)
 
 
-
 class RegistracijaForm(UserCreationForm):
 
     email = forms.EmailField(required=True)
@@ -73,3 +72,16 @@ class RegistracijaForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class VpisForm(AuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super(VpisForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'Uporabniško ime'
+        self.fields['username'].widget.attrs['required'] = True
+        self.fields['username'].widget.attrs['id'] = 'inputUsername'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['placeholder'] = 'Geslo'
+        self.fields['password'].widget.attrs['required'] = True
+        self.fields['password'].widget.attrs['id'] = 'inputPassword'

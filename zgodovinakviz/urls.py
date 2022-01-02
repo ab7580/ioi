@@ -11,5 +11,5 @@ urlpatterns = [
     path('vprasanje/<int:pk>/odstrani', views.odstrani, name='odstrani'),
     path('moja_vprasanja', views.moja_vprasanja, name='moja_vprasanja'),
     path('registracija', views.registracija, name='registracija'),
-    path('vpis', views.vpis, name='vpis'),
+    path('vpis', views.vpis.as_view(), name='vpis'),
 ]
