@@ -80,7 +80,8 @@ window.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             data: formData,
             processData: false,
-            contentType: false,
+              contentType: false,
+              headers: { 'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value },
 
             xhr: function () {
               var xhr = new XMLHttpRequest();
