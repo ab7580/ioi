@@ -14,7 +14,7 @@
                 To pa ne bo pravilno! Namig: {{vprasanje.namig}}.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Poiskusi še enkrat</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Poskusi še enkrat</button>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
                 Odgovor je pravilen!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Nadaljuj z vprašanji</button>
+                <a role="button" href="/kviz" type="button" class="btn btn-primary" data-dismiss="modal">Nadaljuj</a>
             </div>
         </div>
     </div>
@@ -52,11 +52,25 @@
                 Odgovor je napačen!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Nadaljuj z vprašanji</button>
+                <a role="button" href="/kviz" type="button" class="btn btn-primary" data-dismiss="modal">Nadaljuj</a>
             </div>
         </div>
     </div>
 </div>
+
+{% if success and not pravilen %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#modalWrong").modal('show');
+        });
+    </script>
+{% elif success and pravilen %}
+	<script type="text/javascript">
+        $(document).ready(function(){
+            $("#modalCorrect").modal('show');
+        });
+    </script>
+{% endif %}
 
 <div class="container mt-4">
     <div class="row justify-content-center">
@@ -64,14 +78,14 @@
             <h5>{{vprasanje.vprasanje}}</h5>
 
             <div class="mt-3 mb-3 text-center">
-                <img src="{{vprasanje.slika}}" class="img-fluid">
+                <img src="{{vprasanje.slika.slika.url}}" class="img-fluid">
             </div>
             <form id="myform" method="post">
                 {% csrf_token %}
                 <button onclick="showCorrect()" type="submit" name="{{vprasanje.pravilen_odgovor}}" value="{{vprasanje.pravilen_odgovor}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.pravilen_odgovor}}</button>
-                <button onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_1}}" value="{{vprasanje.napacen_odgovor_1}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_1}}</button>
-                <button onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_2}}" value="{{vprasanje.napacen_odgovor_2}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_2}}</button>
             </form>
+			<button onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_1}}" value="{{vprasanje.napacen_odgovor_1}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_1}}</button>
+            <button onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_2}}" value="{{vprasanje.napacen_odgovor_2}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_2}}</button>
         </div>
     </div>
 </div>
