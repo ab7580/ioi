@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'zgodovinakviz',
+    'django_cropper_image',
 ]
 
 MIDDLEWARE = [
@@ -122,9 +123,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/vstop'
+
+DJANGO_CROPPER_IMAGE_SETTINGS ={
+    'EXCLUDE_CROPPERJS':False, #can excude cropperjs js and css files
+    'CROPPERJS_STATIC_JS':'django_cropper_image/js/cropper.min.js', # can change cropper js file
+    'CROPPERJS_STATIC_CSS':'django_cropper_image/css/cropper.min.css',# can change cropper css file
+    'CUSTOM_STATIC_JS':'django_cropper_image/js/image_cropper.js', # can change django_cropper_image module custom js
+    'CUSTOM_STATIC_CSS':'django_cropper_image/css/image_cropper.css', # can change django_cropper_image module custom css
+    'TEMPLATES':'django_cropper_image/image_cropper_input.html', # can change django_cropper_image module template files
+}

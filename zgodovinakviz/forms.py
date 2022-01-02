@@ -14,9 +14,15 @@ class VprasanjeForm(forms.ModelForm):
             'pravilen_odgovor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Pravilni odgovor', 'required': True}),
             'napacen_odgovor_1': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Prvi napačni odgovor', 'required': True}),
             'napacen_odgovor_2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Drugi napačni odgovor', 'required': True}),
-            'namig': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Namig', 'required': True}),
-            'slika': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'URL slike', 'required': True})
+            'namig': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Namig', 'required': True})
         }
+
+    def __init__(self, *args, **kwargs):
+        super(VprasanjeForm, self).__init__(*args, **kwargs)
+
+        self.fields['slika'].widget.attrs['class'] = 'custom-file-input'
+        self.fields['slika'].widget.attrs['id'] = 'upload'
+        self.fields['slika'].widget.attrs['onchange'] = 'readURL(this);'
 
 class VprasanjeEditForm(forms.ModelForm):
 
@@ -28,8 +34,7 @@ class VprasanjeEditForm(forms.ModelForm):
             'pravilen_odgovor': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'napacen_odgovor_1': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'napacen_odgovor_2': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'namig': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'slika': forms.TextInput(attrs={'class': 'form-control', 'required': True})
+            'namig': forms.TextInput(attrs={'class': 'form-control', 'required': True})
         }
 
 class OdgovorForm(forms.ModelForm):

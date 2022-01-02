@@ -11,7 +11,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Tvoja trenutna stopnja je Zgodovinar začetnik. Da napreduješ na naslednjo stopnjo, moraš pravilno odgovoriti še na 6 vprašanj.
+                Tvoja trenutna stopnja je {{stopnja}}. Da napreduješ na naslednjo stopnjo, moraš pravilno odgovoriti še na {{napredovanje}} vprašanj.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Zapri</button>
@@ -23,7 +23,14 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-lg-7 col-md-10">
-            <h4 class="text-center">Zgodovinar začetnik <i data-toggle="modal" data-target="#infoModal" class="bi bi-info-circle"></i></h4>
+            <h4 class="text-center">{{stopnja}} <i data-toggle="modal" data-target="#infoModal" class="bi bi-info-circle"></i></h4>
+			{% if nova_stopnja == 1%}
+			Čestitke! Napreduješ na naslednjo stopnjo: {{stopnja}}.
+			{% elif nova_stopnja == 2 %}
+			Čestitke! Zgodovino obvladaš! Uspešno si zaključil zadnjo stopnjo. Za vajo lahko še vedno odgovarjaš na vprašanja.
+			{% elif nova_stopnja == -1 %}
+			Ni ti uspelo pravilno odgovoriti na dovolj vprašanj, da bi napredoval/a na naslednjo stopnjo. Brez skrbi, stopnjo lahko ponoviš. Verjamemo, da ti bo uspelo!
+			{% endif %}
             <table class="table table-borderless">
                 <tbody>
                     <tr>

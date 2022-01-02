@@ -17,7 +17,6 @@ class Uporabnik(models.Model):
     def __str__(self):
         return self.user.first_name
 
-
 class Vprasanje(models.Model):
     author = models.ForeignKey(Uporabnik, on_delete=models.SET_NULL, null=True)
     vprasanje = models.CharField(max_length=1000)
@@ -25,7 +24,7 @@ class Vprasanje(models.Model):
     napacen_odgovor_1 = models.CharField(max_length=1000)
     napacen_odgovor_2 = models.CharField(max_length=1000)
     namig = models.CharField(max_length=1000)
-    slika = models.CharField(max_length=1000)
+    slika = models.ImageField(upload_to='images/')
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
