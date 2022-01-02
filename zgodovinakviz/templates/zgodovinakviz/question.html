@@ -1,20 +1,17 @@
 {% extends 'zgodovinakviz/base.html' %}
 {% block content %}
 <!-- Modal -->
-<div class="modal fade" id="modalHint" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalHint" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="infoModalLabel">Ups!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 To pa ne bo pravilno! Namig: {{vprasanje.namig}}.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Poskusi še enkrat</button>
+                <button onclick="placeButtonsInForm()" type="button" class="btn btn-primary" data-dismiss="modal">Poskusi še enkrat</button>
             </div>
         </div>
     </div>
@@ -25,9 +22,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="infoModalLabel">Čestitke!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 Odgovor je pravilen!
@@ -39,14 +33,11 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="modalWrong" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalWrong" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="infoModalLabel">Ups!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 Odgovor je napačen!
@@ -75,17 +66,18 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-lg-7 col-md-10">
-            <h5>{{vprasanje.vprasanje}}</h5>
+            <h5 class="text-center">{{vprasanje.vprasanje}}</h5>
 
-            <div class="mt-3 mb-3 text-center">
-                <img src="{{vprasanje.slika.slika.url}}" class="img-fluid">
+            <div class="mt-3 mb-3">
+                <img src="{{vprasanje.slika.slika.url}}" class="img-fluid mx-auto d-block">
             </div>
-            <form id="myform" method="post">
+            <div id="hint" class="text-center mb-3 d-none">Namig: {{vprasanje.namig}}.</div>
+            <form class="shuffle-me" id="myform" method="post">
                 {% csrf_token %}
-                <button onclick="showCorrect()" type="submit" name="{{vprasanje.pravilen_odgovor}}" value="{{vprasanje.pravilen_odgovor}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.pravilen_odgovor}}</button>
+                <button onclick="showCorrect()" type="submit" name="{{vprasanje.pravilen_odgovor}}" value="{{vprasanje.pravilen_odgovor}}" class="btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.pravilen_odgovor}}</button>
             </form>
-			<button onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_1}}" value="{{vprasanje.napacen_odgovor_1}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_1}}</button>
-            <button onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_2}}" value="{{vprasanje.napacen_odgovor_2}}" class="questioncard btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_2}}</button>
+            <button id="b1" onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_1}}" value="{{vprasanje.napacen_odgovor_1}}" class="shuffle-me btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_1}}</button>
+            <button id="b2" onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_2}}" value="{{vprasanje.napacen_odgovor_2}}" class="shuffle-me btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_2}}</button>
         </div>
     </div>
 </div>
