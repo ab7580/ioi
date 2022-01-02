@@ -2,13 +2,13 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-from .models import Vprasanje, Odgovor
+from .models import Vprasanje, Odgovor, Slika
 
 class VprasanjeForm(forms.ModelForm):
 
     class Meta:
         model = Vprasanje
-        fields = ('vprasanje', 'pravilen_odgovor', 'napacen_odgovor_1', 'napacen_odgovor_2', 'namig', 'slika')
+        fields = ('vprasanje', 'pravilen_odgovor', 'napacen_odgovor_1', 'napacen_odgovor_2', 'namig')
         widgets = {
             'vprasanje': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vprašanje', 'required': True}),
             'pravilen_odgovor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Pravilni odgovor', 'required': True}),
@@ -17,18 +17,11 @@ class VprasanjeForm(forms.ModelForm):
             'namig': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Namig', 'required': True})
         }
 
-    def __init__(self, *args, **kwargs):
-        super(VprasanjeForm, self).__init__(*args, **kwargs)
-
-        self.fields['slika'].widget.attrs['class'] = 'custom-file-input'
-        self.fields['slika'].widget.attrs['id'] = 'upload'
-        self.fields['slika'].widget.attrs['onchange'] = 'readURL(this);'
-
 class VprasanjeEditForm(forms.ModelForm):
 
     class Meta:
         model = Vprasanje
-        fields = ('vprasanje', 'pravilen_odgovor', 'napacen_odgovor_1', 'napacen_odgovor_2', 'namig', 'slika')
+        fields = ('vprasanje', 'pravilen_odgovor', 'napacen_odgovor_1', 'napacen_odgovor_2', 'namig')
         widgets = {
             'vprasanje': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'pravilen_odgovor': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
@@ -90,3 +83,16 @@ class VpisForm(AuthenticationForm):
         self.fields['password'].widget.attrs['placeholder'] = 'Geslo'
         self.fields['password'].widget.attrs['required'] = True
         self.fields['password'].widget.attrs['id'] = 'inputPassword'
+
+class SlikaForm(forms.ModelForm):
+
+    class Meta:
+        model = Slika
+        fields = ('slika',)
+
+    def __init__(self, *args, **kwargs):
+        super(SlikaForm, self).__init__(*args, **kwargs)
+
+        self.fields['slika'].widget.attrs['class'] = 'custom-file-input'
+        self.fields['slika'].widget.attrs['id'] = 'upload'
+        self.fields['slika'].widget.attrs['onchange'] = 'readURL(this);'

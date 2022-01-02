@@ -16,6 +16,7 @@ urlpatterns = [
     path('registracija', views.registracija, name='registracija'),
     path('vpis', views.vpis.as_view(), name='vpis'),
     path('izpis', LogoutView.as_view(next_page='/'), name='izpis'),
+    path('upload', views.upload, name='upload'),
 ]
 
 if settings.DEBUG:

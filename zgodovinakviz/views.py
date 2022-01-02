@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Vprasanje, Uporabnik, PrikazanaVprasanja, Odgovor, Level
-from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm, RegistracijaForm, VpisForm
+from .forms import VprasanjeForm, OdgovorForm, VprasanjeEditForm, RegistracijaForm, VpisForm, SlikaForm
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -55,9 +55,16 @@ def vstopi(request):
     return render(request, 'zgodovinakviz/index.html', {'title': 'Dobrodosli v kvizkotu'})
 
 @login_required
+def upload(request):
+    if request.method == "POST":
+        form = SlikaForm(request.FILES)
+        if form.is_valid():
+            slika = form.save()
+
+@login_required
 def dodaj(request):
     if request.method == "POST":
-        form = VprasanjeForm(request.POST, request.FILES)
+        form = VprasanjeForm(request.POST)
         if form.is_valid():
             vprasanje = form.save(commit=False)
             user = request.user
@@ -67,7 +74,8 @@ def dodaj(request):
             return redirect('moja_vprasanja')
     else:
         form = VprasanjeForm()
-        return render(request, 'zgodovinakviz/add_question.html', {'form': form, 'title': 'Dodaj vprasanje'})
+        slikaForm = SlikaForm()
+        return render(request, 'zgodovinakviz/add_question.html', {'form': form, 'title': 'Dodaj vprasanje', 'slikaForm': slikaForm})
 
 @login_required
 def uredi(request, pk):

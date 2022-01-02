@@ -76,7 +76,7 @@ window.addEventListener('DOMContentLoaded', function () {
           var formData = new FormData();
 
           formData.append('avatar', blob, 'avatar.jpg');
-          $.ajax('https://jsonplaceholder.typicode.com/posts', {
+          $.ajax('http://127.0.0.1:8000/upload', {
             method: 'POST',
             data: formData,
             processData: false,
