@@ -71,6 +71,7 @@ def dodaj(request):
             vprasanje = form.save(commit=False)
             user = request.user
             vprasanje.author = Uporabnik.objects.get(user=user)
+            vprasanje.slika = Slika.objects.filter(slika__contains=vprasanje.slika_name)[0]
             vprasanje.published_date = timezone.now()
             vprasanje.save()
             return redirect('moja_vprasanja')
@@ -88,12 +89,21 @@ def uredi(request, pk):
             vprasanje = form.save(commit=False)
             user = request.user
             vprasanje.author = Uporabnik.objects.get(user=user)
+            vprasanje.slika = Slika.objects.filter(slika__contains=vprasanje.slika_name)[0]
             vprasanje.published_date = timezone.now()
             vprasanje.save()
             return redirect('moja_vprasanja')
     else:
         form = VprasanjeEditForm(instance=vprasanje)
-    return render(request, 'zgodovinakviz/edit_question.html', {'form': form, 'vprasanje_pk': pk, 'title': 'Uredi vprašanje', 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
+
+    slikaForm = SlikaForm(instance=vprasanje.slika)
+    slika = vprasanje.slika
+    return render(request, 'zgodovinakviz/edit_question.html', {'form': form,
+                                                                'vprasanje_pk': pk,
+                                                                'title': 'Uredi vprašanje',
+                                                                'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj,
+                                                                'slikaForm': slikaForm,
+                                                                'slika': slika})
 
 @login_required
 def odstrani(request, pk):

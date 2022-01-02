@@ -22,13 +22,14 @@ class VprasanjeEditForm(forms.ModelForm):
 
     class Meta:
         model = Vprasanje
-        fields = ('vprasanje', 'pravilen_odgovor', 'napacen_odgovor_1', 'napacen_odgovor_2', 'namig')
+        fields = ('vprasanje', 'pravilen_odgovor', 'napacen_odgovor_1', 'napacen_odgovor_2', 'namig', 'slika_name')
         widgets = {
             'vprasanje': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'pravilen_odgovor': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'napacen_odgovor_1': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
             'napacen_odgovor_2': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
-            'namig': forms.TextInput(attrs={'class': 'form-control', 'required': True})
+            'namig': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'slika_name': forms.TextInput(attrs={'required': True, 'hidden': True, 'id': "slika_name"})
         }
 
 class OdgovorForm(forms.ModelForm):
