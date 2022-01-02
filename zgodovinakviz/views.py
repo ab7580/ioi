@@ -102,6 +102,10 @@ def odstrani(request, pk):
 @login_required
 def vprasanje(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
+    uporabnik = Uporabnik.objects.get(user=request.user)
+    odgovorjeno = Odgovor.objects.filter(author=uporabnik, vprasanje=vprasanje)
+    if odgovorjeno:
+        return redirect("kviz")
 
     if request.method == "POST":
         user = request.user
@@ -111,22 +115,30 @@ def vprasanje(request, pk):
                                    izbran_odgovor = vprasanje.pravilen_odgovor,
                                    pravilen = True,
                                    published_date = timezone.now())
+            return render(request, 'zgodovinakviz/question.html',
+                          {'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': True, 'pravilen': True})
         elif vprasanje.napacen_odgovor_1 in request.POST:
             Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
                                    vprasanje = vprasanje,
                                    izbran_odgovor = vprasanje.napacen_odgovor_1,
                                    pravilen = False,
                                    published_date = timezone.now())
+            return render(request, 'zgodovinakviz/question.html',
+                          {'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': True,
+                           'pravilen': False})
         elif vprasanje.napacen_odgovor_2 in request.POST:
             Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
                                    vprasanje = vprasanje,
                                    izbran_odgovor = vprasanje.napacen_odgovor_2,
                                    pravilen = False,
                                    published_date = timezone.now())
-        return redirect('kviz')
+            return render(request, 'zgodovinakviz/question.html',
+                          {'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': True,
+                           'pravilen': False})
+
     else:
         form = OdgovorForm()
-    return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje, 'title': 'Vprasanje'})
+        return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': False, 'pravilen': False})
 
 @login_required
 def izbrisiPrikazanaVprasanjaForUser(uporabnik):

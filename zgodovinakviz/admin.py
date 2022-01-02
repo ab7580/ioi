@@ -3,10 +3,11 @@ from .models import Vprasanje
 from .models import Odgovor
 from .models import Level
 from .models import Uporabnik
-from .models import PrikazanaVprasanja
+from .models import PrikazanaVprasanja, Slika
 
 admin.site.register(Vprasanje)
 admin.site.register(Odgovor)
 admin.site.register(Level)
 admin.site.register(Uporabnik)
 admin.site.register(PrikazanaVprasanja)
+admin.site.register(Slika)
