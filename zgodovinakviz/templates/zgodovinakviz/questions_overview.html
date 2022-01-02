@@ -9,13 +9,15 @@
                 <td class="text-left col-9 col-lg-10">
                     {{v.vprasanje}}<br>
                     (Odgovor: {{v.pravilen_odgovor}})<br>
-					{% if v.locked %}
-					<button class="btn btn-primary btn-sm mt-2" disabled><i class="bi bi-lock"></i> Uredi</button>
+                    Dodano: {{v.created_date}}<br>
+                    {% if v.locked %}
+                    <button class="btn btn-primary btn-sm mt-2" disabled><i class="bi bi-lock"></i> Uredi</button>
                     <button class="btn btn-danger btn-sm ml-2 mt-2" disabled><i class="bi bi-lock"></i> Odstrani</button>
-					{% else %}
-					<a role="button" href="{% url 'uredi' pk=v.pk %}" class="btn btn-primary btn-sm mt-2">Uredi</a>
+                    {% else %}
+                    <a role="button" href="{% url 'uredi' pk=v.pk %}" class="btn btn-primary btn-sm mt-2">Uredi</a>
                     <button data-toggle="modal" data-target="#modalDelete{{v.pk}}" class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
-					{% endif %}
+                    {% endif %}
+
                 </td>
                 <td class="text-right">
                     <img src="{{v.slika.slika.url}}" class="img-fluid">
