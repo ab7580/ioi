@@ -43,14 +43,16 @@
     <h3>Pregled učencev</h3>
     <table class="table table-borderless">
         <tbody>
+			{% for u in ucenci %}
             <tr>
                 <td>
                     <!--class teacher is for enabling on hover functionality for icons-->
-                    <i data-toggle="modal" data-target="#infoModalLockStudent" class="teacher bi bi-lock"></i> Alen Bizjak (Zgodovinar začetnik)<br>
-                    <button class="btn btn-primary btn-sm mt-2">Vprašanja</button>
-                    <button class="btn btn-secondary btn-sm ml-2 mt-2">Odgovori</button>
+                    <i data-toggle="modal" data-target="#infoModalLockStudent" class="teacher bi bi-lock"></i> {{u.user.username}} ({{u.level.ime}})<br>
+                    <a role="button" href="{% url 'vprasanja_ucenca' pk=u.pk %}" class="btn btn-primary btn-sm mt-2">Vprašanja</a>
+                    <a role="button" href="{% url 'odgovori_ucenca' pk=u.pk %}" class="btn btn-secondary btn-sm ml-2 mt-2">Odgovori</a>
                 </td>
             </tr>
+			{% endfor %}
             <tr>
                 <td>
                     <i data-toggle="modal" data-target="#infoModalUnlockStudent" class="teacher bi bi-lock-fill"></i> Erika Stanković (Zgodovinar začetnik)<br>

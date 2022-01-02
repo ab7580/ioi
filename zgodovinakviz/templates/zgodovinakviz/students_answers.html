@@ -1,12 +1,14 @@
 {% extends 'zgodovinakviz/base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h4 class="mb-4">Alen Bizjak (Zgodovinar začetnik)</h4>
-    <div class="myBorder myBorder-green">
-        Question?<br>
-        Odgovor: lalala.<br>
-    </div>
-    <br>
+    <h4 class="mb-4">{{ucenec.user.username}} ({{ucenec.level.ime}})</h4>
+	{% for o in odgovori %}
+		<div class="myBorder {% if o.pravilen %} myBorder-green {% else %} myBorder-red {% endif %}">
+			{{o.vprasanje.vprasanje}}<br>
+			Odgovor: {{o.izbran_odgovor}}<br>
+		</div>
+		<br>
+	{% endfor %}
     <div class="myBorder myBorder-red">
         Question?<br>
         Odgovor: lalala.<br>

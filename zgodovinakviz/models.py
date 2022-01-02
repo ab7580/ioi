@@ -13,9 +13,11 @@ class Level(models.Model):
 class Uporabnik(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True)
+    ucitelj = models.BooleanField(default=False)
+    locked = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.username
 
 class Slika(models.Model):
     slika = models.ImageField(upload_to='images/')
@@ -30,6 +32,7 @@ class Vprasanje(models.Model):
     slika = models.ForeignKey(Slika, on_delete=models.SET_NULL, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
+    locked = models.BooleanField(default=False)
 
     def publish(self):
         self.published_date = timezone.now()

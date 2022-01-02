@@ -38,6 +38,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/moja_vprasanja">Moja vprašanja</a>
                 </li>
+				{% if ucitelj %}
+				<li class="nav-item">
+					<a class="nav-link" href="/pregled_vprasanj">Pregled vprašanj</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/ucenci/pregled">Pregled učencev</a>
+				</li>
+				{% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">

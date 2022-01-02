@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'zgodovinakviz',
-    'django_cropper_image',
 ]
 
 MIDDLEWARE = [

@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponse
 
 import random
 
@@ -52,7 +53,7 @@ def vpis(request):
 
 @login_required
 def vstopi(request):
-    return render(request, 'zgodovinakviz/index.html', {'title': 'Dobrodosli v kvizkotu'})
+    return render(request, 'zgodovinakviz/index.html', {'title': 'Dobrodošli v kvizkotu', 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
 
 @login_required
 def upload(request):
@@ -60,6 +61,8 @@ def upload(request):
         form = SlikaForm(request.FILES)
         if form.is_valid():
             slika = form.save()
+            return HttpResponse(status=201)
+    return HttpResponse(status=500)
 
 @login_required
 def dodaj(request):
@@ -75,7 +78,7 @@ def dodaj(request):
     else:
         form = VprasanjeForm()
         slikaForm = SlikaForm()
-        return render(request, 'zgodovinakviz/add_question.html', {'form': form, 'title': 'Dodaj vprasanje', 'slikaForm': slikaForm})
+        return render(request, 'zgodovinakviz/add_question.html', {'form': form, 'title': 'Dodaj vprašanje', 'slikaForm': slikaForm, 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
 
 @login_required
 def uredi(request, pk):
@@ -91,13 +94,31 @@ def uredi(request, pk):
             return redirect('moja_vprasanja')
     else:
         form = VprasanjeEditForm(instance=vprasanje)
-    return render(request, 'zgodovinakviz/edit_question.html', {'form': form, 'vprasanje_pk': pk, 'title': 'Uredi vprasanje'})
+    return render(request, 'zgodovinakviz/edit_question.html', {'form': form, 'vprasanje_pk': pk, 'title': 'Uredi vprašanje', 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
 
 @login_required
 def odstrani(request, pk):
     vprasanje = get_object_or_404(Vprasanje, pk=pk)
     vprasanje.delete()
     return redirect('moja_vprasanja')
+
+@login_required
+def zakleni(request, pk):
+    if not Uporabnik.objects.get(user=request.user).ucitelj:
+        return redirect("kviz")
+    vprasanje = get_object_or_404(Vprasanje, pk=pk)
+    vprasanje.locked = True
+    vprasanje.save()
+    return redirect('pregled_vprasanj')
+
+@login_required
+def odkleni(request, pk):
+    if not Uporabnik.objects.get(user=request.user).ucitelj:
+        return redirect("kviz")
+    vprasanje = get_object_or_404(Vprasanje, pk=pk)
+    vprasanje.locked = False
+    vprasanje.save()
+    return redirect('pregled_vprasanj')
 
 @login_required
 def vprasanje(request, pk):
@@ -116,7 +137,7 @@ def vprasanje(request, pk):
                                    pravilen = True,
                                    published_date = timezone.now())
             return render(request, 'zgodovinakviz/question.html',
-                          {'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': True, 'pravilen': True})
+                          {'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': True, 'pravilen': True, 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
         elif vprasanje.napacen_odgovor_1 in request.POST:
             Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
                                    vprasanje = vprasanje,
@@ -125,7 +146,7 @@ def vprasanje(request, pk):
                                    published_date = timezone.now())
             return render(request, 'zgodovinakviz/question.html',
                           {'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': True,
-                           'pravilen': False})
+                           'pravilen': False, 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
         elif vprasanje.napacen_odgovor_2 in request.POST:
             Odgovor.objects.create(author = Uporabnik.objects.get(user=user),
                                    vprasanje = vprasanje,
@@ -134,11 +155,11 @@ def vprasanje(request, pk):
                                    published_date = timezone.now())
             return render(request, 'zgodovinakviz/question.html',
                           {'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': True,
-                           'pravilen': False})
+                           'pravilen': False, 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
 
     else:
         form = OdgovorForm()
-        return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje, 'title': 'Vprasanje', 'success': False, 'pravilen': False})
+        return render(request, 'zgodovinakviz/question.html', {'form':form, 'vprasanje': vprasanje, 'title': vprasanje.vprasanje, 'success': False, 'pravilen': False, 'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
 
 @login_required
 def izbrisiPrikazanaVprasanjaForUser(uporabnik):
@@ -161,6 +182,7 @@ def generateNewVprasanjaForUser(uporabnik, num):
             chosen = random.randint(0, len(neodgovorjena_vprasanja) - 1)
         chosen_ints.append(chosen)
         chosen_vprasanje = neodgovorjena_vprasanja[chosen]
+        neodgovorjena_vprasanja.remove(chosen_vprasanje)
         chosen_pks.append(chosen_vprasanje)
         PrikazanaVprasanja.objects.create(uporabnik=uporabnik, vprasanje=Vprasanje.objects.get(pk=chosen_vprasanje))
 
@@ -218,13 +240,56 @@ def kviz(request):
                                                                 'pravilna': pravilna_vprasanja,
                                                                 'napacna': napacna_vprasanja,
                                                                 'neodgovorjena': neodgovorjena_vprasanja,
-                                                                'title': 'Seznam vprasanj',
+                                                                'title': 'Seznam vprašanj',
                                                                 'stopnja': uporabnik.level.ime,
                                                                 'napredovanje': 6-len(pravilna_vprasanja),
-                                                                'nova_stopnja': nova_stopnja})
+                                                                'nova_stopnja': nova_stopnja,
+                                                                'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
 
 @login_required
 def moja_vprasanja(request):
-    vprasanja = Vprasanje.objects.all().order_by('-created_date');
-    return render(request, 'zgodovinakviz/questions_overview.html', {'vprasanja': vprasanja, 'title': 'Moja vprasanja'})
+    vprasanja = Vprasanje.objects.filter(author=Uporabnik.objects.get(user=request.user)).order_by('-created_date')
+    return render(request, 'zgodovinakviz/questions_overview.html', {'vprasanja': vprasanja,
+                                                                     'title': 'Moja vprašanja',
+                                                                     'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
+
+@login_required
+def pregled_vprasanj(request):
+    if not Uporabnik.objects.get(user=request.user).ucitelj:
+        return redirect("kviz")
+    vprasanja = Vprasanje.objects.all().order_by('-created_date')
+    return render(request, 'zgodovinakviz/questions_overview_ucitelj.html', {'vprasanja': vprasanja,
+                                                                     'title': 'Pregled vprašanj',
+                                                                     'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
+
+@login_required
+def pregled_ucencev(request):
+    if not Uporabnik.objects.get(user=request.user).ucitelj:
+        return redirect("kviz")
+    ucenci = Uporabnik.objects.all()
+    return render(request, 'zgodovinakviz/students_overview.html', {'ucenci': ucenci,
+                                                                     'title': 'Pregled učencev',
+                                                                     'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
+
+@login_required
+def odgovori_ucenca(request, pk):
+    if not Uporabnik.objects.get(user=request.user).ucitelj:
+        return redirect("kviz")
+    ucenec = get_object_or_404(Uporabnik, pk=pk)
+    odgovori = Odgovor.objects.filter(author=ucenec)
+    return render(request, 'zgodovinakviz/students_answers.html', {'ucenec': ucenec,
+                                                                   'odgovori': odgovori,
+                                                                    'title': 'Pregled odgovorov učenca',
+                                                                    'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
+
+@login_required
+def vprasanja_ucenca(request, pk):
+    if not Uporabnik.objects.get(user=request.user).ucitelj:
+        return redirect("kviz")
+    ucenec = get_object_or_404(Uporabnik, pk=pk)
+    vprasanja = Vprasanje.objects.filter(author=ucenec).order_by('-created_date')
+    return render(request, 'zgodovinakviz/questions_overview_ucitelj.html', {'ucenec': ucenec,
+                                                                   'vprasanja': vprasanja,
+                                                                    'title': 'Pregled vprašanj učenca',
+                                                                    'ucitelj': Uporabnik.objects.get(user=request.user).ucitelj})
 
