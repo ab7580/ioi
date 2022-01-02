@@ -1,0 +1,90 @@
+{% extends 'zgodovinakviz/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Pregled vprašanj - {{ucenec.user.username}} ({{ucenec.level.ime}})</h3>
+    <table class="table table-borderless">
+        <tbody>
+            {% for v in vprasanja %}
+            <tr>
+                <td class="text-left col-9 col-lg-10">
+					{% if v.locked %}
+						<i data-toggle="modal" data-target="#modalUnlock{{v.pk}}" class="teacher bi bi-lock-fill"></i> 
+					{% else %}
+						<i data-toggle="modal" data-target="#modalLock{{v.pk}}" class="teacher bi bi-lock"></i> 
+					{% endif %}
+					{{v.vprasanje}}<br>
+                    (Odgovor: {{v.pravilen_odgovor}})<br>
+					Avtor: {{v.author.user.username}}<br>
+                    <a role="button" href="{% url 'uredi' pk=v.pk %}" class="btn btn-primary btn-sm mt-2">Uredi</a>
+                    <button data-toggle="modal" data-target="#modalDelete{{v.pk}}" class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
+                </td>
+                <td class="text-right">
+                    <img src="{{v.slika.slika.url}}" class="img-fluid">
+                </td>
+            </tr>
+            <!-- Modal -->
+            <div class="modal fade" id="modalDelete{{v.pk}}" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="infoModalLabel">Opozorilo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Vprašanje bo odstranjeno.
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" type="button" class="btn btn-danger" href="{% url 'odstrani' pk=v.pk %}">Odstrani</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalLock{{v.pk}}" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+                <!--TODO call this-->
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="infoModalLabel">Zaklepanje vprašanja</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Če je vprašanje ustrezno, se ga lahko zaklene. Učenci ne morejo urejati ali izbrisati zaklenjenega vprašanja.
+                        </div>
+                        <div class="modal-footer">
+							<a role="button" type="button" class="btn btn-danger" href="{% url 'zakleni' pk=v.pk %}">Zakleni</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalUnlock{{v.pk}}" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+                <!--TODO-->
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="infoModalLabel">Odklepanje vprašanja</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Vprašanje bo odklenjeno. Učenci ga bodo lahko urejali in izbrisali.
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" type="button" class="btn btn-danger" href="{% url 'odkleni' pk=v.pk %}">Odkleni</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal END-->
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
