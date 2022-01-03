@@ -5,6 +5,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var image = document.getElementById('image');
     var input = document.getElementById('upload');
     var myText = document.getElementById("myText");
+    var slikaName = document.getElementById("slika_name");
     var $progress = $('.progress');
     var $progressBar = $('.progress-bar');
     var $alert = $('.alert');
@@ -73,9 +74,10 @@ window.addEventListener('DOMContentLoaded', function () {
         $progress.show();
         $alert.removeClass('alert-success alert-warning');
         canvas.toBlob(function (blob) {
-          var formData = new FormData();
-
-          formData.append('slika', blob, 'avatar.jpg');
+            var formData = new FormData();
+            var uuid = crypto.randomUUID();
+            slikaName.value = uuid + '.jpg';
+            formData.append('slika', blob, slikaName.value);
           $.ajax('http://127.0.0.1:8000/upload', {
             method: 'POST',
             data: formData,
