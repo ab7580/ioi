@@ -22,7 +22,9 @@ urlpatterns = [
     path('pregled_vprasanj', views.pregled_vprasanj, name='pregled_vprasanj'),
     path('ucenci/pregled', views.pregled_ucencev, name='pregled_ucencev'),
     path('ucenec/<int:pk>/odgovori', views.odgovori_ucenca, name='odgovori_ucenca'),
-    path('ucenci/<int:pk>/vprasanja', views.vprasanja_ucenca, name='vprasanja_ucenca'),
+    path('ucenec/<int:pk>/vprasanja', views.vprasanja_ucenca, name='vprasanja_ucenca'),
+    path('ucenec/<int:pk>/odkleni', views.odkleni_ucenca, name='odkleni_ucenca'),
+    path('ucenec/<int:pk>/zakleni', views.zakleni_ucenca, name='zakleni_ucenca'),
 ]
 
 if settings.DEBUG:

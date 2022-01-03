@@ -1,11 +1,12 @@
 {% extends 'zgodovinakviz/base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h4 class="mb-4">{{ucenec.user.username}} ({{ucenec.level.ime}})</h4>
+    <h4 class="mb-4">Pregled odgovorov - {{ucenec.user.username}} ({{ucenec.level.ime}})</h4>
 	{% for o in odgovori %}
 		<div class="myBorder {% if o.pravilen %} myBorder-green {% else %} myBorder-red {% endif %}">
 			{{o.vprasanje.vprasanje}}<br>
 			Odgovor: {{o.izbran_odgovor}}<br>
+			Dodano: {{o.created_date}}<br>
 		</div>
 		<br>
 	{% endfor %}

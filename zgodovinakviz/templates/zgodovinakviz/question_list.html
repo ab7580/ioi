@@ -37,9 +37,9 @@
                         {% for v in vprasanja1 %}
                         <td>
                             <div class="myBorder
-                                             {% if v.pk in pravilna %} myBorder-green
-                                             {% elif v.pk in napacna %} myBorder-red
-                                             {% elif v.pk in neodgovorjena %} myBorder-black {% endif %}">
+                                             {% if v.pk in pravilna %} myBorder-green myBackground-green
+                                             {% elif v.pk in napacna %} myBorder-red myBackground-red
+                                             {% elif v.pk in neodgovorjena %} myBorder-black myBackground-black {% endif %}">
                                 <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm {% if v.pk in neodgovorjena %} grayscale {% endif %}"></a>
                             </div>
                         </td>

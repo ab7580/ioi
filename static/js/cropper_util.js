@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', function () {
         canvas.toBlob(function (blob) {
           var formData = new FormData();
 
-          formData.append('avatar', blob, 'avatar.jpg');
+          formData.append('slika', blob, 'avatar.jpg');
           $.ajax('http://127.0.0.1:8000/upload', {
             method: 'POST',
             data: formData,

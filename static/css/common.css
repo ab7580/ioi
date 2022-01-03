@@ -26,13 +26,16 @@
 	padding: 5px;
 }
 .myBorder-green {
-	border-color: rgb(214, 248, 214);
+	border-color: #35D461;
+	background-color: #35D461;
 }
 .myBorder-red {
-	border-color: rgb(241, 196, 196)
+	border-color: #D62226;
+	background-color: #D62226;
 }
 .myBorder-black {
-	border-color: rgba(44, 44, 42, 0.226)
+	border-color: rgba(44, 44, 42, 0.226);
+	background-color: rgba(44, 44, 42, 0.226);
 }
 img {
 	border-radius:.75rem!important

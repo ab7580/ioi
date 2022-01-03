@@ -6,11 +6,11 @@
         <tbody>
             {% for v in vprasanja %}
             <tr>
-                <td class="text-left col-9 col-lg-10">
+                <td class="text-left col-9 col-lg-10 {% if v.locked %}text-muted{%endif%}">
                     {{v.vprasanje}}<br>
                     (Odgovor: {{v.pravilen_odgovor}})<br>
                     Dodano: {{v.created_date}}<br>
-                    {% if v.locked %}
+                    {% if v.locked or uporabnik.locked %}
                     <button class="btn btn-primary btn-sm mt-2" disabled><i class="bi bi-lock"></i> Uredi</button>
                     <button class="btn btn-danger btn-sm ml-2 mt-2" disabled><i class="bi bi-lock"></i> Odstrani</button>
                     {% else %}

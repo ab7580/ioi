@@ -8,7 +8,7 @@
                 <h5 class="modal-title" id="infoModalLabel">Ups!</h5>
             </div>
             <div class="modal-body">
-                To pa ne bo pravilno! Namig: {{vprasanje.namig}}.
+                Odgovor je napačen. Poskusi še enkrat. Namig: {{vprasanje.namig}}.
             </div>
             <div class="modal-footer">
                 <button onclick="placeButtonsInForm()" type="button" class="btn btn-primary" data-dismiss="modal">Poskusi še enkrat</button>
@@ -27,7 +27,7 @@
                 Odgovor je pravilen!
             </div>
             <div class="modal-footer">
-                <a role="button" href="/kviz" type="button" class="btn btn-primary" data-dismiss="modal">Nadaljuj</a>
+                <a role="button" href="/kviz" type="button" class="btn btn-primary">Nadaljuj</a>
             </div>
         </div>
     </div>
@@ -40,28 +40,14 @@
                 <h5 class="modal-title" id="infoModalLabel">Ups!</h5>
             </div>
             <div class="modal-body">
-                Odgovor je napačen!
+                Odgovor je napačen.
             </div>
             <div class="modal-footer">
-                <a role="button" href="/kviz" type="button" class="btn btn-primary" data-dismiss="modal">Nadaljuj</a>
+                <a role="button" href="/kviz" type="button" class="btn btn-primary">Nadaljuj</a>
             </div>
         </div>
     </div>
 </div>
-
-{% if success and not pravilen %}
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#modalWrong").modal('show');
-        });
-    </script>
-{% elif success and pravilen %}
-	<script type="text/javascript">
-        $(document).ready(function(){
-            $("#modalCorrect").modal('show');
-        });
-    </script>
-{% endif %}
 
 <div class="container mt-4">
     <div class="row justify-content-center">
@@ -81,4 +67,19 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+{% if success and not pravilen %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#modalWrong").modal('show');
+        });
+    </script>
+{% elif success and pravilen %}
+	<script type="text/javascript">
+        $(document).ready(function(){
+            $("#modalCorrect").modal('show');
+        });
+    </script>
+{% endif %}
 {% endblock %}

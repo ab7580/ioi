@@ -1,65 +1,63 @@
 {% extends 'zgodovinakviz/base.html' %}
 {% block content %}
-<!-- Modal -->
-<div class="modal fade" id="infoModalLockStudent" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="infoModalLabel">Zaklepanje učenca</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Zaklenjeni učenci ne morejo urejati ali dodajati vprašanj.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Zakleni</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="infoModalUnlockStudent" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="infoModalLabel">Odklepanje učenca</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Učenec bo odklenjen.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Odkleni</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container mt-4">
     <h3>Pregled učencev</h3>
     <table class="table table-borderless">
         <tbody>
 			{% for u in ucenci %}
             <tr>
-                <td>
+                <td class="{% if u.locked %}text-muted{%endif%}">
                     <!--class teacher is for enabling on hover functionality for icons-->
-                    <i data-toggle="modal" data-target="#infoModalLockStudent" class="teacher bi bi-lock"></i> {{u.user.username}} ({{u.level.ime}})<br>
+					{% if u.locked %}
+						<i data-toggle="modal" data-target="#infoModalUnlockStudent{{u.pk}}" class="teacher bi bi-lock-fill"></i> 
+					{% else %}
+						<i data-toggle="modal" data-target="#infoModalLockStudent{{u.pk}}" class="teacher bi bi-lock"></i> 
+					{% endif %}
+                    {{u.user.username}} ({{u.level.ime}})<br>
                     <a role="button" href="{% url 'vprasanja_ucenca' pk=u.pk %}" class="btn btn-primary btn-sm mt-2">Vprašanja</a>
                     <a role="button" href="{% url 'odgovori_ucenca' pk=u.pk %}" class="btn btn-secondary btn-sm ml-2 mt-2">Odgovori</a>
                 </td>
             </tr>
+			<!-- Modal -->
+			<div class="modal fade" id="infoModalLockStudent{{u.pk}}" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="infoModalLabel">Zaklepanje učenca</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							Zaklenjeni učenci ne morejo urejati ali dodajati vprašanj, lahko pa na vprašanja odgovarjajo.
+						</div>
+						<div class="modal-footer">
+							<a role="button" type="button" class="btn btn-primary" href="{% url 'zakleni_ucenca' pk=u.pk %}">Zakleni</a>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="infoModalUnlockStudent{{u.pk}}" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="infoModalLabel">Odklepanje učenca</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							Učenec bo odklenjen. Lahko bo urejal in dodajal vprašanja.
+						</div>
+						<div class="modal-footer">
+							<a role="button" type="button" class="btn btn-primary" href="{% url 'odkleni_ucenca' pk=u.pk %}">Odkleni</a>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			{% endfor %}
-            <tr>
-                <td>
-                    <i data-toggle="modal" data-target="#infoModalUnlockStudent" class="teacher bi bi-lock-fill"></i> Erika Stanković (Zgodovinar začetnik)<br>
-                    <button class="btn btn-primary btn-sm mt-2">Vprašanja</button>
-                    <button class="btn btn-secondary btn-sm ml-2 mt-2">Odgovori</button>
-                </td>
-            </tr>
         </tbody>
     </table>
 </div>

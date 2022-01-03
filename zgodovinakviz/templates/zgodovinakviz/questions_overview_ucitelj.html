@@ -6,7 +6,7 @@
         <tbody>
             {% for v in vprasanja %}
             <tr>
-                <td class="text-left col-9 col-lg-10">
+                <td class="text-left col-9 col-lg-10 {% if v.locked %}text-muted{%endif%}">
                     {% if v.locked %}
                     <i data-toggle="modal" data-target="#modalUnlock{{v.pk}}" class="teacher bi bi-lock-fill"></i>
                     {% else %}

@@ -33,12 +33,16 @@
                     <a class="nav-link" href="/kviz">Kviz</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/vprasanje/dodaj">Dodaj vprašanje</a>
+					{% if uporabnik.locked %}
+					<div class="nav-link text-muted">Dodaj vprašanje</div>
+					{% else %}
+					<a class="nav-link" href="/vprasanje/dodaj">Dodaj vprašanje</a>
+					{% endif %}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/moja_vprasanja">Moja vprašanja</a>
                 </li>
-				{% if ucitelj %}
+				{% if uporabnik.ucitelj %}
 				<li class="nav-item">
 					<a class="nav-link" href="/pregled_vprasanj">Pregled vprašanj</a>
 				</li>
@@ -63,6 +67,8 @@
     <script src="{% static 'js/cropper_util.js' %}"></script>
     <script src="{% static 'js/validation.js' %}"></script>
     <script src="{% static 'js/image_upload.js' %}"></script>
+	{% block scripts %}
+	{% endblock %}
 </body>
 
 </html>

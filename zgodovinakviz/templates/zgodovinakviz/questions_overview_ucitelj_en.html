@@ -14,7 +14,7 @@
 					{% endif %}
 					{{v.vprasanje}}<br>
                     (Odgovor: {{v.pravilen_odgovor}})<br>
-					Avtor: {{v.author.user.username}}<br>
+					Dodano: {{v.created_date}}<br>
                     <a role="button" href="{% url 'uredi' pk=v.pk %}" class="btn btn-primary btn-sm mt-2">Uredi</a>
                     <button data-toggle="modal" data-target="#modalDelete{{v.pk}}" class="btn btn-danger btn-sm ml-2 mt-2">Odstrani</button>
                 </td>

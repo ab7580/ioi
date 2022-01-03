@@ -22,6 +22,9 @@ class Uporabnik(models.Model):
 class Slika(models.Model):
     slika = models.ImageField(upload_to='images/')
 
+    def __str__(self):
+        return self.slika.name
+
 class Vprasanje(models.Model):
     author = models.ForeignKey(Uporabnik, on_delete=models.SET_NULL, null=True)
     vprasanje = models.CharField(max_length=1000)
@@ -56,7 +59,7 @@ class Odgovor(models.Model):
         self.save()
 
     def __str__(self):
-        return self.vprasanje.vprasanje
+        return self.vprasanje.vprasanje if self.vprasanje else "Izbrisano vprašanje"
 
 
 class PrikazanaVprasanja(models.Model):
