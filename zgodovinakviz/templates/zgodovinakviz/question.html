@@ -57,7 +57,7 @@
             <div class="mt-3 mb-3">
                 <img src="{{vprasanje.slika.slika.url}}" class="img-fluid mx-auto d-block">
             </div>
-            <div id="hint" class="text-center mb-3 d-none">Namig: {{vprasanje.namig}}.</div>
+            <div id="hint" class="text-center mb-3 d-none">Namig: {{vprasanje.namig}}</div>
             <form class="shuffle-me" id="myform" method="post">
                 {% csrf_token %}
                 <button onclick="showCorrect()" type="submit" name="{{vprasanje.pravilen_odgovor}}" value="{{vprasanje.pravilen_odgovor}}" class="btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.pravilen_odgovor}}</button>

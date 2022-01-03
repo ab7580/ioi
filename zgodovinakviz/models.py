@@ -59,7 +59,7 @@ class Odgovor(models.Model):
         self.save()
 
     def __str__(self):
-        return self.vprasanje.vprasanje if self.vprasanje else "Izbrisano vprašanje"
+        return self.author.user.username + ": " + (self.vprasanje.vprasanje if self.vprasanje else "Izbrisano vprašanje")
 
 
 class PrikazanaVprasanja(models.Model):

@@ -252,7 +252,7 @@ def kviz(request):
         prikazanaVprasanja, neodgovorjena_vprasanja, pravilna_vprasanja, napacna_vprasanja = prikaziVprasanjaForUser(uporabnik)
 
     # če je napačno odgovoril na več kot 3 vprašanja, ne more več napredovati na naslednjo stopnjo
-    if len(napacna_vprasanja) >= 3:
+    if len(napacna_vprasanja) > 3:
         nova_stopnja = -1
         izbrisiPrikazanaVprasanjaForUser(uporabnik)
         prikazanaVprasanja, neodgovorjena_vprasanja, pravilna_vprasanja, napacna_vprasanja = prikaziVprasanjaForUser(uporabnik)
