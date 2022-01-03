@@ -75,8 +75,9 @@ window.addEventListener('DOMContentLoaded', function () {
         $alert.removeClass('alert-success alert-warning');
         canvas.toBlob(function (blob) {
             var formData = new FormData();
-            slikaName.value = crypto.randomUUID();
-          formData.append('slika', blob, 'avatar.jpg');
+            var uuid = crypto.randomUUID();
+            slikaName.value = uuid + '.jpg';
+            formData.append('slika', blob, slikaName.value);
           $.ajax('http://127.0.0.1:8000/upload', {
             method: 'POST',
             data: formData,
