@@ -19,18 +19,65 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Obvestilo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Čestitke! Napreduješ na naslednjo stopnjo: {{stopnja}}.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zapri</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Obvestilo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Čestitke! Zgodovino obvladaš! Uspešno si zaključil zadnjo stopnjo. Za vajo lahko še vedno odgovarjaš na vprašanja.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zapri</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Obvestilo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ni ti uspelo pravilno odgovoriti na dovolj vprašanj, da bi napredoval/a na naslednjo stopnjo. Brez skrbi, stopnjo lahko ponoviš. Verjamemo, da ti bo uspelo!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zapri</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Modal END-->
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-lg-7 col-md-10">
             <h4 class="text-center">{{stopnja}} <i data-toggle="modal" data-target="#infoModal" class="bi bi-info-circle"></i></h4>
-			{% if nova_stopnja == 1%}
-			Čestitke! Napreduješ na naslednjo stopnjo: {{stopnja}}.
-			{% elif nova_stopnja == 2 %}
-			Čestitke! Zgodovino obvladaš! Uspešno si zaključil zadnjo stopnjo. Za vajo lahko še vedno odgovarjaš na vprašanja.
-			{% elif nova_stopnja == -1 %}
-			Ni ti uspelo pravilno odgovoriti na dovolj vprašanj, da bi napredoval/a na naslednjo stopnjo. Brez skrbi, stopnjo lahko ponoviš. Verjamemo, da ti bo uspelo!
-			{% endif %}
             <table class="table table-borderless">
                 <tbody>
                     <tr>
@@ -74,4 +121,26 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+{% if nova_stopnja == 1%}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#modal1").modal('show');
+    });
+</script>
+{% elif nova_stopnja == 2 %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#modal2").modal('show');
+    });
+</script>
+{% elif nova_stopnja == -1 %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#modal-1").modal('show');
+    });
+</script>
+{% endif %}
 {% endblock %}

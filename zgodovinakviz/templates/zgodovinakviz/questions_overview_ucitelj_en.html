@@ -1,7 +1,7 @@
 {% extends 'zgodovinakviz/base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h3>Pregled vprašanj - {{ucenec.user.username}} ({{ucenec.level.ime}})</h3>
+    <h3 class="text-center">Pregled vprašanj - {{ucenec.user.username}} ({{ucenec.level.ime}})</h3>
     <table class="table table-borderless">
         <tbody>
             {% for v in vprasanja %}
