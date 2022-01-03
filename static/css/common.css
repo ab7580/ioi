@@ -27,14 +27,20 @@
 }
 .myBorder-green {
 	border-color: #35D461;
+}
+.myBackground-green {
 	background-color: #35D461;
 }
 .myBorder-red {
 	border-color: #D62226;
+}
+.myBackground-red {
 	background-color: #D62226;
 }
 .myBorder-black {
 	border-color: rgba(44, 44, 42, 0.226);
+}
+.myBackground-black {
 	background-color: rgba(44, 44, 42, 0.226);
 }
 img {
