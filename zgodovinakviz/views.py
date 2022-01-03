@@ -192,26 +192,32 @@ def generateNewVprasanjaForUser(uporabnik, num):
     odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik).values('vprasanje__id')
     neodgovorjena_vprasanja = Vprasanje.objects.exclude(pk__in=odgovorjena_vprasanja).values('pk')
     neodgovorjena_vprasanja = [v['pk'] for v in neodgovorjena_vprasanja]
+    print("halp 5")
 
     chosen_ints = []
     chosen_pks = []
     for i in range(num):
+        print("halp 6 " + str(i))
         if len(neodgovorjena_vprasanja) == 0:
             break
         chosen = random.randint(0, len(neodgovorjena_vprasanja) - 1)
-        while chosen in chosen_ints:
-            chosen = random.randint(0, len(neodgovorjena_vprasanja) - 1)
+        """while chosen in chosen_ints:
+            chosen = random.randint(0, len(neodgovorjena_vprasanja) - 1)"""
         chosen_ints.append(chosen)
         chosen_vprasanje = neodgovorjena_vprasanja[chosen]
         neodgovorjena_vprasanja.remove(chosen_vprasanje)
         chosen_pks.append(chosen_vprasanje)
         PrikazanaVprasanja.objects.create(uporabnik=uporabnik, vprasanje=Vprasanje.objects.get(pk=chosen_vprasanje))
+        print("halp 7")
 
 @login_required
 def prikaziVprasanjaForUser(uporabnik):
+    print("halp")
     prikazanaVprasanja = PrikazanaVprasanja.objects.filter(uporabnik=uporabnik)
     if len(prikazanaVprasanja) != 9:
+        print("halp 2")
         generateNewVprasanjaForUser(uporabnik, 9 - len(prikazanaVprasanja))
+        print("halp 3")
         prikazanaVprasanja = PrikazanaVprasanja.objects.filter(uporabnik=uporabnik)
         prikazanaVprasanja = Vprasanje.objects.filter(
             pk__in=[v['vprasanje'] for v in prikazanaVprasanja.values('vprasanje')])
@@ -219,6 +225,7 @@ def prikaziVprasanjaForUser(uporabnik):
         prikazanaVprasanja = Vprasanje.objects.filter(
             pk__in=[v['vprasanje'] for v in prikazanaVprasanja.values('vprasanje')])
 
+    print("halp 4")
     odgovorjena_vprasanja = Odgovor.objects.filter(author=uporabnik, vprasanje__in=prikazanaVprasanja)
     neodgovorjena_vprasanja = prikazanaVprasanja.exclude(
         pk__in=[v['vprasanje__id'] for v in odgovorjena_vprasanja.values('vprasanje__id')]).values('pk')
