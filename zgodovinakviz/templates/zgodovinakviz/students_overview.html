@@ -32,7 +32,7 @@
 							Zaklenjeni učenci ne morejo urejati ali dodajati vprašanj, lahko pa na vprašanja odgovarjajo.
 						</div>
 						<div class="modal-footer">
-							<a role="button" type="button" class="btn btn-primary" href="{% url 'zakleni_ucenca' pk=u.pk %}">Zakleni</a>
+							<a role="button" type="button" class="btn btn-danger" href="{% url 'zakleni_ucenca' pk=u.pk %}">Zakleni</a>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 							Učenec bo odklenjen. Lahko bo urejal in dodajal vprašanja.
 						</div>
 						<div class="modal-footer">
-							<a role="button" type="button" class="btn btn-primary" href="{% url 'odkleni_ucenca' pk=u.pk %}">Odkleni</a>
+							<a role="button" type="button" class="btn btn-danger" href="{% url 'odkleni_ucenca' pk=u.pk %}">Odkleni</a>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Prekliči</button>
 						</div>
 					</div>
