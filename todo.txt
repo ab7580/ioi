@@ -1,6 +1,10 @@
-- funkcija lock za ucitelja da zaklene ucencu moznost zbrisat vprasanje / zaklene ucencu moznost delat vprasanja
-- zelena, crna, rdeca obroba okrog slik na 3x3 gridu, ki nakazuje stanje vprašanja
-- zaobljene slike
-
-- gumbki za učitelje
-- namigi za učence
+- upload na pythonanywhere
+- errors on login - Alen če meni ne rata danes
+- boljše ime
+- lock na templatih za pregled vprašanj in odgovorov za učenca - Alen
+	
+- improvements:
+	- info na zaklenjenih vprašanjih, zakaj so zaklenjena (a so dobra in jih je učitelj zaklenu, al je učenca zaklenu ker dela neumnosti)
+	
+	
+	- barve? gumbi rdeči niso iste barve kot rdeče obrobe
