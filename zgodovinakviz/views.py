@@ -53,7 +53,7 @@ def vpis(request):
 
 @login_required
 def vstopi(request):
-    return render(request, 'zgodovinakviz/index.html', {'title': 'Dobrodošli v kvizkotu', 'uporabnik': Uporabnik.objects.get(user=request.user)})
+    return render(request, 'zgodovinakviz/index.html', {'title': 'Dobrodošli v kvizu zgodovine', 'uporabnik': Uporabnik.objects.get(user=request.user)})
 
 @login_required
 def upload(request):
