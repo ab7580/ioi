@@ -62,8 +62,8 @@
                 {% csrf_token %}
                 <button onclick="showCorrect()" type="submit" name="{{vprasanje.pravilen_odgovor}}" value="{{vprasanje.pravilen_odgovor}}" class="btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.pravilen_odgovor}}</button>
             </form>
-            <button id="b1" onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_1}}" value="{{vprasanje.napacen_odgovor_1}}" class="shuffle-me btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_1}}</button>
-            <button id="b2" onclick="showWrongOrHintIfFirst()" type="submit" name="{{vprasanje.napacen_odgovor_2}}" value="{{vprasanje.napacen_odgovor_2}}" class="shuffle-me btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_2}}</button>
+            <button id="b1" onclick="showWrongOrHintIfFirst(1)" type="submit" name="{{vprasanje.napacen_odgovor_1}}" value="{{vprasanje.napacen_odgovor_1}}" class="shuffle-me btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_1}}</button>
+            <button id="b2" onclick="showWrongOrHintIfFirst(2)" type="submit" name="{{vprasanje.napacen_odgovor_2}}" value="{{vprasanje.napacen_odgovor_2}}" class="shuffle-me btn btn-sm btn-primary btn-block mt-1 mb-3">{{vprasanje.napacen_odgovor_2}}</button>
         </div>
     </div>
 </div>
