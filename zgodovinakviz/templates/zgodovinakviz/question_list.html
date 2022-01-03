@@ -87,7 +87,11 @@
                                              {% if v.pk in pravilna %} myBorder-green
                                              {% elif v.pk in napacna %} myBorder-red
                                              {% elif v.pk in neodgovorjena %} myBorder-black{% endif %}">
-                                <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm {% if v.pk in neodgovorjena %} grayscale {% endif %}"></a>
+                                {% if v.pk in neodgovorjena %}
+                                <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm grayscale"></a>
+                                {% else %}
+                                <img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm">
+                                {% endif %}
                             </div>
                         </td>
                         {% endfor %}
@@ -99,7 +103,11 @@
                                              {% if v.pk in pravilna %} myBorder-green
                                              {% elif v.pk in napacna %} myBorder-red
                                              {% elif v.pk in neodgovorjena %} myBorder-black {% endif %}">
-                                <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm {% if v.pk in neodgovorjena %} grayscale {% endif %}"></a>
+                                {% if v.pk in neodgovorjena %}
+                                <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm grayscale"></a>
+                                {% else %}
+                                <img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm">
+                                {% endif %}
                             </div>
                         </td>
                         {% endfor %}
@@ -111,7 +119,11 @@
                                              {% if v.pk in pravilna %} myBorder-green
                                              {% elif v.pk in napacna %} myBorder-red
                                              {% elif v.pk in neodgovorjena %} myBorder-black {% endif %}">
-                                <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm {% if v.pk in neodgovorjena %} grayscale {% endif %}"></a>
+                                {% if v.pk in neodgovorjena %}
+                                <a href="{% url 'vprasanje' pk=v.pk %}"><img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm grayscale"></a>
+                                {% else %}
+                                <img src="{{v.slika.slika.url}}" class="img-fluid avatar avatar-sm">
+                                {% endif %}
                             </div>
                         </td>
                         {% endfor %}
