@@ -2,7 +2,7 @@ cd-jaj git folder (pazi, da nimaš presledkov in šumnikov v pathu, drugače pop
 cd D:\Erika\sola\mag2\interaktivnost\seminar2\ioi
 
 delamo v virtual environmentu, ki se kliče ioienv
-(te vrstice verjetno ne rabiš ampak ti jo dam za vsak slučaj če naslednja ne bo delala) python -m venv ioienv
+python -m venv ioienv
 s tem aktiviraš ioienv: ioienv\Scripts\activate
 
 se ti prikaže (ioienv) pred command linom, to pomeni da zdej izvajaš ukaze v environmentu, to vedno narediš ko začneš delat na nalogi

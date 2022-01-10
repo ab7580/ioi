@@ -5,7 +5,7 @@
         <div class="col-lg-7 col-md-10 text-center">
             <h1>Dobrodošli v kvizu zgodovine!</h1>
             <p>Odgovarjaj na vprašanja o zgodovini ali dodaj nova vprašanja.</p>
-            <a role="button" href="/vprasanje/dodaj" class="btn btn-primary btn-lg btn-block">Dodaj vprašanje</a>
+            <a role="button" href="/vprasanje/dodaj" class="btn btn-primary btn-lg btn-block {% if uporabnik.locked %} disabled {% endif%}">Dodaj vprašanje</a>
             <a role="button" href="/kviz" class="btn btn-secondary btn-lg btn-block mb-4">Odgovarjaj na vprašanja</a>
         </div>
     </div>
