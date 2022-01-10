@@ -2,3 +2,4 @@
 ioienv
 .vs
 zgodovinakviz/migrations/__pycache__/
+.env
