@@ -1,0 +1,1 @@
+web: gunicorn zgodovina.wsgi --log-file -
