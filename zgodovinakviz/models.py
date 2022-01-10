@@ -33,7 +33,6 @@ class Vprasanje(models.Model):
     napacen_odgovor_2 = models.CharField(max_length=1000)
     namig = models.CharField(max_length=1000)
     slika = models.ForeignKey(Slika, on_delete=models.SET_NULL, null=True)
-    slika_name = models.CharField(max_length=1000, default="")
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
     locked = models.BooleanField(default=False)
